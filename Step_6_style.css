@@ -1,0 +1,288 @@
+/* ==== Fonts ==== */
+
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400&display=swap");
+
+/* ==== Base ==== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  background: #e5e5e5;
+  color: #1b1b1b;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* Screen-reader-only content */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==== Page container ==== */
+
+html,
+body {
+  height: 100dvh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background: #ffffff;
+  font-family: "Inter", sans-serif;
+}
+
+/* ==== Page ==== */
+
+main {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  width: 100%;
+  padding: 16px 18px;
+  background: #f3f3f3;
+}
+
+@media (min-width: 600px) {
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* ==== Logo and success message ==== */
+
+.hero {
+  display: flex;
+  align-items: stretch;
+  gap: 22px;
+  min-height: 0;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 0 0 102px;
+}
+
+.logo {
+  width: 102px;
+  height: 109px;
+  object-fit: contain;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+  color: #526748;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.hero-text h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@media (min-width: 400px) {
+  .hero-text h1 {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 600px) {
+  .hero-text h1 {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 900px) {
+  .hero-text h1 {
+    font-size: 24px;
+  }
+}
+
+.hero-text p {
+  margin: 0;
+}
+
+/* ==== Confirmation ==== */
+
+.confirmation {
+  margin-top: 8px;
+}
+/* ==== Green Tick ==== */
+.success-icon {
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin-left: 11px;
+}
+/* ==== Reference Number ====*/
+.reference {
+  margin: 0;
+  padding: 15px 10px;
+  background: #ffffff;
+  border: 1px solid #1b1b1b;
+  border-radius: 5px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* ==== Updates ====*/
+
+.updates {
+  margin-top: 12px;
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #1b1b1b;
+  border-radius: 5px;
+}
+
+.updates h2 {
+  margin: 0 0 4px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.updates h2:not(:first-child) {
+  margin-top: 8px;
+}
+
+.updates p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.updates a {
+  color: #1b1b1b;
+  font-weight: 600;
+}
+
+/* ==== Contact details ==== */
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.field label {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.field input {
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  padding: 8px 12px;
+  border: 1px solid #1b1b1b;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #1b1b1b;
+}
+
+.field input:focus-visible {
+  outline: 3px solid #1b1b1b;
+  outline-offset: 3px;
+}
+
+/* ==== Bottom Buttons ==== */
+
+footer {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  gap: 22px;
+  padding: 14px 18px calc(20px + env(safe-area-inset-bottom));
+  background: #f3f3f3;
+}
+
+@media (min-width: 600px) {
+  footer {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+footer a {
+  flex: 1;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px;
+
+  background: #0fcaf5; /* New button colour*/
+  border: 2px solid #1b1b1b;
+  border-radius: 5px;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
+
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+footer a:focus-visible,
+.updates a:focus-visible {
+  outline: 3px solid #1b1b1b;
+  outline-offset: 3px;
+}
+
+footer a:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* ==== Responsive breakpoints ==== */
+
+@media (max-width: 374px) {
+  main {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  footer {
+    gap: 14px;
+  }
+}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Step 5: Confirm Details </title>
+
+    <link rel="stylesheet" href="Step_5_style.css" />
+  </head>
+
+  <body>
+    <main>
+      <header class="hero">
+        <img src="assets/Group 1.png" alt="FixIt" />
+
+        <div class="tooltip">
+          <p class="tooltip-step">Step 5 of 5:</p>
+          <h1 class="tooltip-text">Please check and confirm details *</h1>
+        </div>
+      </header>
+
+      <section>
+        <h2 class="visually-hidden">Issue description</h2>
+        <p class="issue-text">
+          Shopping trolley dumped in park closest to Park avenue, near power
+          pole
+        </p>
+      </section>
+
+      <section>
+        <h2 class="visually-hidden">Photos</h2>
+        <ul class="photo-list">
+          <li>
+            <img
+              src="assets/photo.png"
+              alt="Photo of the dumped shopping trolley in the park"
+              class="photo photo--filled"
+            />
+          </li>
+          <li>
+            <button type="button" class="photo photo--empty">
+              <img src="assets/icon-photo.png" alt="" />
+              <span class="photo-add-label">Add</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="photo photo--empty">
+              <img src="assets/icon-photo.png" alt="" />
+              <span class="photo-add-label">Add</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="photo photo--empty">
+              <img src="assets/icon-photo.png" alt="" />
+              <span class="photo-add-label">Add</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="visually-hidden">Location</h2>
+
+        <figure class="map">
+          <img
+            src="assets/Group 37.png"
+            alt="Map centred on Birmingham, with a pin marking the reported location"
+          />
+          <img src="assets/Map pin.png" alt="" class="map-marker" />
+          <figcaption class="visually-hidden">
+            Map of the reported location
+          </figcaption>
+        </figure>
+
+        <div class="field">
+          <label for="location">Location</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            value="32B Shore Road, Remuera, Auckland 1050"
+            readonly
+          />
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <button type="button">Change a Detail</button>
+      <a href="Step_6_index.html">Confirm</a>
+    </footer>
+  </body>
+</html>

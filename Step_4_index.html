@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step 4</title>
+    <link rel="stylesheet" href="Step_4_style.css" />
+    <script defer src="Step_4_script.js"></script>
+  </head>
+  <body>
+    <main>
+      <!-- Header -->
+      <header class="header">
+        <img src="assets/Group 1.png" alt="FixIt" class="logo" />
+        <div class="tooltip">
+          <h1>Step 4 OF 5: <br />Provide a description of the issue *</h1>
+        </div>
+      </header>
+
+      <!-- Empty state section -->
+      <section class="file-input-container">
+        <div class="file-input-text" id="emptyState">
+          <div class="file-input-icon">
+            <img src="assets/attach-file-add.svg" alt="" />
+          </div>
+          <h2>No files selected yet</h2>
+          <p>Take photos on-site or attach files from your device</p>
+        </div>
+
+        <!-- Button card section -->
+        <section class="file-upload-section">
+          <div class="file-input-button">
+            <button id="takePhotoButton">
+              <img src="assets/photo-camera.svg" alt="" />
+              Take Photo
+            </button>
+
+            <button id="attachPhotoButton">
+              <img src="assets/photo-library.svg" alt="" />
+              Photo Library
+            </button>
+
+            <button id="attachFileButton">
+              <img src="assets/attach-file.svg" alt="" />
+              Browse Files
+            </button>
+          </div>
+          <p class="file-requirements">JPG, PNG, PDF, DOCX up to 25MB</p>
+        </section>
+      </section>
+    </main>
+
+    <!-- File state -->
+
+    <!-- Ready / Uploading card -->
+
+    <div class="file-state" id="fileState" hidden>
+      <div class="file-info">
+        <img
+          id="filePreview"
+          class="file-preview"
+          src="photo-placeholder.svg"
+          alt="Photo preview"
+        />
+
+        <div class="file-details">
+          <p id="fileName" class="file-name">photo.jpg</p>
+          <p id="uploadStatus">Ready to upload</p>
+        </div>
+
+        <div class="file-actions">
+          <span class="progress-percent">0%</span>
+
+          <button id="removeButton" class="remove-button">
+            <img src="delete.svg" alt="Remove file" />
+          </button>
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <!-- Uploaded card -->
+
+    <div class="file-state uploaded-state" id="uploadedState" hidden>
+      <div class="file-info">
+        <img
+          id="uploadedPreview"
+          class="file-preview"
+          src="photo-placeholder.svg"
+          alt="Uploaded photo"
+        />
+
+        <div class="file-details">
+          <p id="uploadedFileName" class="file-name">photo.jpg</p>
+
+          <p id="uploadedStatus">
+            <img src="success.svg" alt="" class="success-icon" />
+            Uploaded
+          </p>
+        </div>
+
+        <div class="file-actions">
+          <button id="previewButton" class="action-button">
+            <img src="preview.svg" alt="Preview file" />
+          </button>
+
+          <button id="uploadedRemoveButton" class="remove-button">
+            <img src="delete.svg" alt="Remove file" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Failed card -->
+
+    <div class="file-state failed-state" id="failedState" hidden>
+      <div class="file-info">
+        <img
+          id="failedPreview"
+          class="file-preview"
+          src="assets/photo-placeholder.svg"
+          alt="Failed photo"
+        />
+
+        <div class="file-details">
+          <p id="failedFileName" class="file-name">photo.jpg</p>
+
+          <p id="failedStatus">
+            <img src="assets/failure.svg" alt="" class="failure-icon" />
+            Exceeds 25 MB limit
+          </p>
+        </div>
+
+        <div class="file-actions">
+          <button id="failedRemoveButton" class="remove-button">
+            <img src="assets/delete.svg" alt="Remove file" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="navigation-buttons">
+      <button
+        class="back-button"
+        onclick="window.location.href = 'Step_3_index.html'"
+      >
+        <img src="assets/arrow-left.svg" alt="left" />
+        <span>Back</span>
+      </button>
+
+      <button
+        class="next-button"
+        onclick="window.location.href = 'Step_5_index.html'"
+      >
+        <span>Next</span>
+        <img src="assets/arrow-right.svg" alt="right" />
+      </button>
+    </div>
+  </body>
+</html>

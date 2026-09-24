@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step 3</title>
+    <link rel="stylesheet" href="Step_3_style.css" />
+    <script defer src="Step_3_script.js"></script>
+  </head>
+  <body>
+    <main>
+      <!-- Header -->
+      <header class="header">
+        <img src="assets/Group 1.png" alt="FixIt" class="logo" />
+        <div class="tooltip">
+          <h1>Step 3 OF 5: <br />Where is the issue located? *</h1>
+        </div>
+      </header>
+
+      <!-- Geolocation button -->
+      <button class="get-location" id="getLocationButton">
+        <img src="assets/get-location.svg" alt="" />
+        <span>Use my current location</span>
+      </button>
+
+      <!-- Geolocation section -->
+      <section class="map-section">
+        <div class="address-search">
+          <input type="text" id="address" placeholder="Enter an address" />
+
+          <button id="searchButton">Search</button>
+        </div>
+
+        <section class="map" id="map"></section>
+      </section>
+    </main>
+
+    <!-- Buttons -->
+    <div class="navigation-buttons">
+      <button class="back-button">
+        <img src="assets/arrow-left.svg" alt="left" />
+        <span>Back</span>
+      </button>
+
+      <button
+        class="next-button"
+        onclick="window.location.href = 'Step_4_index.html'"
+      >
+        <span>Next</span>
+        <img src="assets/arrow-right.svg" alt="right" />
+      </button>
+    </div>
+  </body>
+</html>

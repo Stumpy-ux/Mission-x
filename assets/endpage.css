@@ -1,0 +1,23 @@
+/*Background*/
+body {
+  font-family: "Tahoma", sans-serif;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  background-image: url("Fake\ council\ mobile.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  color: black;
+}
+
+p {
+  font-size: 24px;
+  margin: 35px 0;
+}
+
+i {
+  color: rgb(76, 76, 244);
+}

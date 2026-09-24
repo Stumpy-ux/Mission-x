@@ -1,0 +1,54 @@
+/* ==== Fonts ==== */
+
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400&display=swap");
+
+/* ==== Base ==== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  background: #e5e5e5;
+}
+
+body {
+  margin: 0;
+  background: #e5e5e5;
+  color: #1b1b1b;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/*Background*/
+body {
+  font-family: "Tahoma", sans-serif;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  background-image: url("assets/Fake\ council\ mobile.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  color: black;
+}
+
+/* ==== Fixed width, scales down / caps like Step 3-6 ==== */
+@media (min-width: 600px) {
+  body {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+p {
+  font-size: 24px;
+  margin: 35px 0;
+}
+
+i {
+  color: rgb(76, 76, 244);
+}

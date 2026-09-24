@@ -1,0 +1,403 @@
+/* ==== Fonts ==== */
+
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400&display=swap");
+
+/* ========== Page set ========== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+html,
+body {
+  height: 100dvh;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #1b1b1b;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* ========== Page ========== */
+main {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  width: 100%;
+  padding: 16px 18px;
+  background: #f3f3f3;
+}
+
+@media (min-width: 600px) {
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* ========== Header ========== */
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logo {
+  width: 102px;
+  height: 109px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.tooltip {
+  padding: 12px 16px 18px;
+  background: #ffffff;
+  border: 3px solid #1b1b1b;
+  border-radius: 12px;
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.16);
+}
+
+.tooltip h1 {
+  margin: 0;
+  width: 100%;
+  font-size: 16px;
+}
+
+@media (min-width: 400px) {
+  .tooltip h1 {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 600px) {
+  .tooltip h1 {
+    font-size: 20px;
+  }
+}
+
+/* ========== Empty state section ========== */
+
+.file-input-container {
+  width: 100%;
+  margin: 20px auto 0;
+
+  border: 1px dashed #1b1b1b;
+  border-radius: 12px;
+  padding: 32px 8px;
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.file-input-icon {
+  width: 64px;
+  height: 64px;
+  background: #c5f1f8;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-input-icon img {
+  width: 32px;
+  height: 32px;
+}
+
+.file-input-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.file-input-text h2,
+.file-input-text p {
+  margin: 0;
+}
+
+.file-input-text h2 {
+  font-size: 20px;
+}
+
+.file-input-text p {
+  font-size: 16px;
+}
+
+/* ========== Button file upload section ========== */
+
+.file-upload-section {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.file-upload-section p {
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.file-input-button {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+@media (max-width: 374px) {
+  .file-input-button {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.file-input-button button {
+  width: 100px;
+  height: 80px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  background: #c5f1f8;
+  border: 2px solid transparent;
+  border-radius: 12px;
+
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.file-input-button button:focus-visible {
+  outline: 3px solid #1b1b1b;
+  outline-offset: 3px;
+}
+
+/* Mobile: touch press */
+.file-input-button button:active {
+  transform: scale(0.98);
+}
+
+.file-input-button button img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* ========== Buttons ========== */
+.navigation-buttons {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  gap: 22px;
+  margin-top: auto;
+  padding: 14px 18px calc(20px + env(safe-area-inset-bottom));
+  background: #f3f3f3;
+}
+
+@media (min-width: 600px) {
+  .navigation-buttons {
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.navigation-buttons button {
+  flex: 1;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 8px;
+
+  background: #0fcaf5;
+  border: 2px solid #1b1b1b;
+  border-radius: 5px;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
+
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.navigation-buttons button:focus-visible {
+  outline: 3px solid #1b1b1b;
+  outline-offset: 3px;
+}
+
+.navigation-buttons button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* ========== File state ========== */
+/* ========== Ready / Uploading card ========== */
+
+.file-state {
+  width: calc(100% - 36px);
+  margin: 16px auto 0;
+
+  padding: 16px;
+  border: 1px solid #1b1b1b;
+  border-radius: 12px;
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 600px) {
+  .file-state {
+    width: 100%;
+    max-width: 480px;
+  }
+}
+
+.file-info {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-preview {
+  width: 64px;
+  height: 64px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+  background: #e8efed;
+}
+
+.file-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  flex: 1;
+}
+
+.file-details p {
+  margin: 0;
+}
+
+.file-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#uploadStatus {
+  font-size: 14px;
+  color: #5f6b68;
+}
+
+.remove-button {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: #ffdad6;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.remove-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+
+  background: #e8efed;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+
+  background: #0fcaf5;
+  border-radius: inherit;
+}
+
+.file-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.progress-percent {
+  min-width: 40px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.action-button {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: #f2f3ff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.action-button img {
+  width: 24px;
+  height: 24px;
+}
+
+[hidden] {
+  display: none;
+}
