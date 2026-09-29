@@ -1,6 +1,7 @@
+/* ====== Coded By Emily ====== */
 /* ==== Fonts ==== */
 
-@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap");
 
 /* ========== Page set ========== */
 * {
@@ -13,231 +14,343 @@ html {
 
 html,
 body {
-  height: 100dvh;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  margin: 0;
+  padding: 16px;
+
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+
+  background: #e5e5e5;
   color: #1b1b1b;
   font-family: "Inter", sans-serif;
-  font-size: 16px;
   line-height: 1.4;
 }
 
-/* ========== Page ========== */
-main {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  width: 100%;
-  padding: 16px 18px;
-  background: #f3f3f3;
-}
-
-@media (min-width: 600px) {
-  main {
-    max-width: 480px;
-    margin: 0 auto;
-  }
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
 /* ========== Header ========== */
 .header {
   display: flex;
-  align-items: flex-start;
-  gap: 22px;
-
+  align-items: stretch;
+  gap: clamp(8px, 4vw, 24px);
+  
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 8px;
 }
 
 .logo {
-  width: 102px;
-  height: 109px;
+  width: clamp(64px, 14vw, 78px);
+  height: auto;
   object-fit: contain;
+  aspect-ratio: 102 / 109;
   flex-shrink: 0;
 }
 
-.tooltip {
-  padding: 12px 16px 18px;
-  background: #ffffff;
-  border: 3px solid #1b1b1b;
-  border-radius: 12px;
-  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.16);
+.page-title {
+  flex: 1;
+  min-width: 0;
+  margin: 8px 0;
+  padding: clamp(10px, 3vw, 12px);
+  background: #F9F7F1;
+  border: 2px dashed #849675;
+  border-radius: 20px;
+  /*box-shadow: 0 4px 2px rgba(0, 0, 0, 0.10);*/
 }
 
-.tooltip h1 {
+.page-title h1 {
   margin: 0;
   width: 100%;
-  font-size: 16px;
+  font-size: clamp(16px, 3vw, 18px);
+  font-weight: 600;
+  color: #526748;
 }
 
-@media (min-width: 400px) {
-  .tooltip h1 {
-    font-size: 18px;
-  }
+/* ========== Main ========== */
+main {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
 }
 
-@media (min-width: 600px) {
-  .tooltip h1 {
-    font-size: 20px;
-  }
+/* ========== Location selection ========== */
+
+.map-section {
+  flex: 1;
+  min-height: 0;
+  
+  display: flex;
+  flex-direction: column;
 }
 
-/* ========== Geolocation button ========== */
+/* ========== Current location button ========== */
 
 .get-location {
   width: 100%;
-  margin: 20px auto 0;
+  min-height: 48px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 8px;
-  padding: 8px 16px;
-  border: 1px solid #1b1b1b;
-  border-radius: 20px;
-  background: #c5f1f8;
 
-  color: #1b1b1b;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+
+  border: 1px solid #000;
+  border-radius: 8px;
+
+  background: #fff;
+
+  font-size: 16px;
+
+  cursor: pointer;
 }
 
-/* ========== Geolocation section ========== */
+.get-location img {
+  width: 20px;
+  height: 20px;
 
-.geolocation-section {
-  width: 100%;
-  margin: 20px auto 0;
-
-  padding: 16px;
-  border: 1px solid #1b1b1b;
-  border-radius: 12px;
-  background: rgb(109, 109, 109);
+  object-fit: contain;
 }
 
-.map-section {
-  position: relative;
-  width: 100%;
-  margin: 20px auto 0;
 
-  border: 1px solid #1b1b1b;
-  border-radius: 12px;
-  background: rgb(122, 122, 122);
-  overflow: hidden;
-}
-
-#map {
-  width: 100%;
-  height: 450px;
-
-  background-image: url("assets/Group 37.png");
-  background-size: 160% auto;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+/* ========== Address search ========== */
 
 .address-search {
-  position: absolute;
-  top: 12px;
-  left: 8px;
-
+  width: 100%;
+  
   display: flex;
+  
   gap: 8px;
-
-  width: 90%;
-
-  z-index: 1000;
-}
-
-@media (min-width: 600px) {
-  .address-search {
-    max-width: 480px;
-  }
+  
+  margin-bottom: 12px;
+  
+  flex-shrink: 0;
 }
 
 .address-search input {
   flex: 1;
   min-width: 0;
-  padding: 12px;
+  
+  height: 48px;
+  
+  padding: 0 12px;
+  
+  border: 1px solid #000;
+  border-radius: 8px;
+  
+  font-size: 16px;
+}
 
-  border-radius: 28px;
-  border: none;
-
-  color: #1b1b1b;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
+.address-search input:focus {
+  outline: 2px solid #000;
+  outline-offset: 1px;
 }
 
 .address-search button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 12px;
-  background-color: #0fcaf5;
-
-  color: #1b1b1b;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-/* ========== Buttons ========== */
-.navigation-buttons {
-  flex: 0 0 auto;
-  width: 100%;
-  display: flex;
-  gap: 22px;
-  margin-top: auto;
-  padding: 14px 18px calc(20px + env(safe-area-inset-bottom));
-  background: #f3f3f3;
-}
-
-@media (min-width: 600px) {
-  .navigation-buttons {
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-button {
+  flex-shrink: 0;
+  
+  height: 48px;
+  
+  padding: 0 16px;
+  
+  border: 1px solid #000;
+  border-radius: 8px;
+  
+  background: #000;
+  color: #fff;
+  
+  font-size: 16px;
+  
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
 }
 
-.navigation-buttons button {
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ========== Interactive map ========== */
+
+.map {
+  width: 100%;
+
   flex: 1;
+  min-height: 0;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+}
+
+
+/* ========================================
+   Leaflet Popup
+======================================== */
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+
+.leaflet-popup-content {
+  margin: 12px;
+}
+
+
+/* ========================================
+   Popup content
+======================================== */
+
+.location-popup {
+  width: max-content;
+
+  max-width: 100%;
+}
+
+.location-popup strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 16px;
+}
+
+.location-popup p {
+  margin: 0 0 12px;
+
+  font-size: 14px;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.location-popup button {
+  display: block;
+
+  width: 100%;
+
+  padding: 8px 12px;
+
+  border: 1px solid #000;
+  border-radius: 6px;
+
+  background: #000;
+  color: #fff;
+
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+/* ========== Step navigation buttons ========== */
+
+.navigation-buttons {
+  display: flex;
+  
+  gap: clamp(12px, 3vw, 16px);
+  
+  margin-top: 16px;
+  
+  flex-shrink: 0;
+}
+
+.back-button,
+.next-button {  
   min-height: 48px;
+  
   display: flex;
   align-items: center;
   justify-content: center;
+  
   gap: 8px;
-
-  padding: 8px;
-
-  background: #0fcaf5;
-  border: 2px solid #1b1b1b;
-  border-radius: 5px;
-  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
-
-  color: #1b1b1b;
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: center;
+  
+  padding: 12px 16px;
+  
+  border: 1px solid #000;
+  border-radius: 8px;
+  
+  font-size: 16px;
+  
+  cursor: pointer;
 }
 
-.navigation-buttons button:focus-visible {
-  outline: 3px solid #1b1b1b;
-  outline-offset: 3px;
+.back-button {
+  background: #fff;
+  color: #000;
+  flex: 1;
+
 }
 
-.navigation-buttons button:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+.next-button {
+  background: #000;
+  color: #fff;
+  flex: 4;
+
+}
+
+.back-button img,
+.next-button img {
+  width: 20px;
+  height: 20px;
+  
+  object-fit: contain;
+}
+
+.next-button img {
+  filter: invert(1);
+}
+
+/* ========== Button interaction ========== */
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* ========== Mobile ========== */
+
+@media (max-width: 360px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .logo {
+    align-self: center;
+  }
+}
+
+@media (min-width: 900px) {
+  .location-controls {
+    display: flex;
+    gap: 16px;
+  }
+
+  .get-location,
+  .address-search {
+    flex: 1;
+    min-width: 0;
+  }
 }

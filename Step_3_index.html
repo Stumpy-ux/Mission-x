@@ -1,54 +1,127 @@
+<!-- /* ====== Coded By Emily ====== -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Step 3</title>
+
+    <title>Step 3 - Where is the issue located? | FixIt</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
     <link rel="stylesheet" href="Step_3_style.css" />
     <script defer src="Step_3_script.js"></script>
   </head>
+
   <body>
+
     <main>
-      <!-- Header -->
+
+      <!-- Page header -->
       <header class="header">
-        <img src="assets/Group 1.png" alt="FixIt" class="logo" />
-        <div class="tooltip">
-          <h1>Step 3 OF 5: <br />Where is the issue located? *</h1>
+        <img 
+          src="assets/fixit-logo.svg" 
+          alt="FixIt" 
+          class="logo" 
+        />
+
+        <div class="page-title">
+          <h1>
+            Step 3 of 5: <br/>
+            Where is the issue located? *
+          </h1>
         </div>
       </header>
 
-      <!-- Geolocation button -->
-      <button class="get-location" id="getLocationButton">
-        <img src="assets/get-location.svg" alt="" />
-        <span>Use my current location</span>
-      </button>
-
-      <!-- Geolocation section -->
+      <!-- Location selection -->
       <section class="map-section">
-        <div class="address-search">
-          <input type="text" id="address" placeholder="Enter an address" />
+      
+        <div class="location-controls">
+          <!-- Use current location -->
+          <button 
+            type="button"
+            class="get-location" 
+            id="getLocationButton"
+            >
+            <img 
+              src="assets/get-location.svg" 
+              alt="" 
+            />
+            <span>Use my current location</span>
+          </button>
 
-          <button id="searchButton">Search</button>
+          <!-- Address search -->
+          <div class="address-search">
+            <label for="address" class="visually-hidden">
+              Search for an address
+            </label>
+            <input 
+              type="text" 
+              id="address" 
+              name="address"
+              placeholder="Enter an address" 
+            />
+
+            <button 
+              type="button"
+              id="searchButton"
+              >
+              Search
+            </button>
+          </div>
         </div>
 
-        <section class="map" id="map"></section>
+        <!-- Interactive map -->
+        <div
+          class="map"
+          id="map"
+          aria-label="Interactive map for selecting the issue location"
+        ></div>
+
       </section>
+
     </main>
 
-    <!-- Buttons -->
-    <div class="navigation-buttons">
-      <button class="back-button">
-        <img src="assets/arrow-left.svg" alt="left" />
-        <span>Back</span>
+    <!-- Step navigation -->
+    <nav
+      class="navigation-buttons"
+      aria-label="Step navigation"
+      >
+
+      <button 
+        type="button"
+        class="back-button"
+        aria-label="Back"
+        >
+        <img 
+          src="assets/arrow-left.svg" 
+          alt="" 
+          aria-hidden="true"
+        />
       </button>
 
       <button
+        type="button"
         class="next-button"
         onclick="window.location.href = 'Step_4_index.html'"
-      >
+        >
         <span>Next</span>
-        <img src="assets/arrow-right.svg" alt="right" />
+        <img 
+          src="assets/arrow-right.svg" 
+          alt="" 
+          aria-hidden="true"
+        />
       </button>
-    </div>
+
+    </nav>
+
   </body>
+
 </html>
