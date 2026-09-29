@@ -1,3 +1,5 @@
+/* ====== Coded By Stumpyux (Iain) ====== */
+
 /* ==== Fonts ==== */
 
 @import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400&display=swap");
@@ -55,12 +57,7 @@ main {
    than spinning the whole flat logo as one piece. The SVG markup
    lives in its own file (assets/fixit-logo-spinner.svg) and is
    fetched + injected into #spinnerStage at load time by
-   Step_5_5_script.js, so these rules target it by id/tag rather than
-   a class on the <svg> tag itself. Transform origins below are given
-   in the real logo's own coordinate space (viewBox is 0 0 657 704),
-   picked to match where each group's shapes actually sit — the arcs
-   and phone cluster near the top (roughly x:330 y:120-150), the
-   checkmark sits at its own circle center (x:520 y:536). */
+   Step_5_5_script.js, */
 
 .spinner-stage {
   width: 160px;
