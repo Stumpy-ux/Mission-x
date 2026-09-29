@@ -1,584 +1,391 @@
-/* const map = L.map("map").setView(
-  [-36.8485, 174.7633],
-  13
-);
+/* ====== Coded By Emily ====== */
 
-L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  {
-    attribution: "&copy; OpenStreetMap contributors"
-  }
-).addTo(map);
+// ========================================
+// Map initialization
+// ========================================
 
-let marker = null;
 
-const selectedLocation =
-  document.getElementById("selectedLocation");
-
-const confirmButton =
-  document.getElementById("confirmButton"); */
-
-/* map.on("click", function (event) {
-
-  const latitude = event.latlng.lat;
-  const longitude = event.latlng.lng;
-
-  if (marker) {
-    map.removeLayer(marker);
-  }
-
-  marker = L.marker([
-    latitude,
-    longitude
-  ]).addTo(map);
-
-  selectedLocation.textContent =
-    `Selected location: ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
-
-  confirmButton.disabled = false;
-});
-
-const addressInput =
-  document.getElementById("address");
-
-const searchButton =
-  document.getElementById("searchButton");
-
-searchButton.addEventListener("click", async function () {
-
-  const address = addressInput.value.trim();
-
-  if (!address) {
-    return;
-  }
-
-  const url =
-    `https://nominatim.openstreetmap.org/search?` +
-    `q=${encodeURIComponent(address)}` +
-    `&format=json`;
-
-  const response = await fetch(url);
-
-  const data = await response.json();
-
-  if (data.length === 0) {
-    alert("Address not found.");
-    return;
-  }
-
-  const latitude = parseFloat(data[0].lat);
-  const longitude = parseFloat(data[0].lon);
-
-  map.setView(
-    [latitude, longitude],
-    17
-  );
-
-  if (marker) {
-    map.removeLayer(marker);
-  }
-
-  marker = L.marker([
-    latitude,
-    longitude
-  ]).addTo(map);
-
-  selectedLocation.textContent =
-    `Selected location: ${data[0].display_name}`;
-
-  confirmButton.disabled = false;
-});
-
-confirmButton.addEventListener("click", function () {
-
-  if (!marker) {
-    return;
-  }
-
-  const position = marker.getLatLng();
-
-  console.log("Confirmed location:");
-  console.log("Latitude:", position.lat);
-  console.log("Longitude:", position.lng);
-
-  alert("Location confirmed!");
-}); */
-
-
-// map initialization
-/* const map = L.map("map").setView(
-  [-36.8485, 174.7633],
-  13
-);
-
-L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  {
-    attribution: "&copy; OpenStreetMap contributors"
-  }
-).addTo(map);
-
-
-// Marker variable
-let marker = null;
-
-
-// Get user's location
-const myLocationButton =
-  document.getElementById("myLocationButton");
-
-myLocationButton.addEventListener("click", function () {
-  if (!navigator.geolocation) {
-    alert("Geolocation is not supported by your browser.");
-    return;
-  }
-
-  navigator.geolocation.getCurrentPosition(
-    async function (position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      // Move map to user's location
-      map.setView([latitude, longitude], 17);
-
-      // Remove existing marker
-      if (marker) {
-        map.removeLayer(marker);
-      }
-
-      // Add marker at user's location
-      /* marker = L.marker([latitude, longitude])
-        .addTo(map)
-        .bindPopup("Your location")
-        .openPopup();
-    }, */
-    
-    /* marker = L.marker([
-      latitude, 
-      longitude
-    ]).addTo(map);
-
-
-// Reverse geocoding
-      const url =
-        `https://nominatim.openstreetmap.org/reverse?` +
-        `lat=${latitude}` +
-        `&lon=${longitude}` +
-        `&format=json`;
-
-      try {
-
-        const response = await fetch(url);
-        const data = await response.json();
-
-        const address = data.display_name;
-
-
-        // Show address in popup
-        marker
-          .bindPopup(`
-            <div class="location-popup">
-              <strong>Selected location</strong>
-              <p>${address}</p>
-              <button id="confirmLocation">
-                Confirm location
-              </button>
-            </div>
-          `)
-          .openPopup();
-
-      } catch (error) {
-
-        console.error(error);
-
-        marker
-          .bindPopup("Unable to find the address.")
-          .openPopup();
-      }
-
-    },
-
-    
-
-    function (error) {
-      console.error(error);
-      alert("Unable to get your location.");
-    }
-  );
-});
-
-
-let marker = null;
-
-const addressInput = document.getElementById("address");
-const searchButton = document.getElementById("searchButton");
-
-
-// Search button
-addressInput.addEventListener("keydown", function (event) {
-
-  if (event.key === "Enter") {
-    searchButton.click();
-  }
-
-});
-
-
-searchButton.addEventListener("click", async function () {
-
-  const address = addressInput.value.trim();
-
-  if (!address) {
-    return;
-  }
-
-  const url =
-    `https://nominatim.openstreetmap.org/search?` +
-    `q=${encodeURIComponent(address)}` +
-    `&format=json`;
-
-  try {
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.length === 0) {
-      alert("Address not found.");
-      return;
-    }
-
-    const latitude = parseFloat(data[0].lat);
-    const longitude = parseFloat(data[0].lon);
-
-    // Move map
-    map.setView(
-      [latitude, longitude],
-      17
-    );
-
-    // Remove old marker
-    if (marker) {
-      map.removeLayer(marker);
-    }
-
-    // Create marker
-    marker = L.marker([
-      latitude,
-      longitude
-    ]).addTo(map);
-
-    // Show address
-    marker
-      .bindPopup(`
-        <div class="location-popup">
-          <strong>Selected location</strong>
-          <p>${data[0].display_name}</p>
-          <button id="confirmLocation">
-            Confirm location
-          </button>
-        </div>
-      `)
-      .openPopup();
-
-  } catch (error) {
-
-    console.error(error);
-    alert("Unable to search for this address.");
-
-  }
-
-});
-
-
-map.on("click", async function (event) {
-
-  const latitude = event.latlng.lat;
-  const longitude = event.latlng.lng;
-
-  if (marker) {
-    map.removeLayer(marker);
-  }
-
-  marker = L.marker([
-    latitude,
-    longitude
-  ]).addTo(map);
-
-  // Reverse geocoding
-  const url =
-    `https://nominatim.openstreetmap.org/reverse?` +
-    `lat=${latitude}` +
-    `&lon=${longitude}` +
-    `&format=json`;
-
-  const response = await fetch(url);
-  const data = await response.json();
-
-  const address = data.display_name;
-
-  const popupContent = `
-    <div class="location-popup">
-      <strong>Selected location</strong>
-
-      <p>${address}</p>
-
-      <button id="confirmLocation">
-        Confirm location
-      </button>
-    </div>
-  `;
-
-  marker
-    .bindPopup(popupContent)
-    .openPopup();
-}); */
-
-
-
-
-// map initialization
-/* const map = L.map("map").setView(
-  [-36.8485, 174.7633],
-  13
-); */
 const map = L.map("map", {
   zoomControl: false
-}).setView([-36.8485, 174.7633], 13);
+}).setView(
+  [-36.8485, 174.7633], 13
+);
+
 
 L.control.zoom({
   position: "bottomright"
 }).addTo(map);
 
+
 L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   {
-    attribution: "&copy; OpenStreetMap contributors"
+    attribution:
+      "&copy; OpenStreetMap contributors"
   }
 ).addTo(map);
 
 
-// Marker variable
 let marker = null;
 
 
-// Get user's location
-const myLocationButton =
-  document.getElementById("myLocationButton");
+// ========================================
+// Create popup
+// ========================================
+
+function createLocationPopup(address) {
+  
+  return `
+  <div class="location-popup">
+  
+  <strong>
+  Selected location
+  </strong>
+  
+  <p>
+  ${address}
+  </p>
+  
+  <button
+  type="button"
+  class="confirm-location"
+  >
+  Confirm location
+  </button>
+  
+  </div>
+  `;
+}
+
+
+// ========================================
+// Show popup
+// ========================================
+
+function showLocationPopup(address) {
+  
+  const maxPopupWidth = getMaxPopupWidth();
+  
+  
+  marker
+  .bindPopup(
+    createLocationPopup(address),
+    {
+      autoPan: true,
+      maxWidth: maxPopupWidth
+    }
+  )
+  .openPopup();
+}
+
+
+// ========================================
+// Get maximum popup width
+// ========================================
+
+function getMaxPopupWidth() {
+
+  const mapElement =
+    document.getElementById("map");
+
+  const mapWidth =
+    mapElement.clientWidth;
+
+  return mapWidth * 0.8;
+}
+
+
+// ========================================
+// Current location
+// ========================================
+
+const myLocationButton = document.getElementById(
+    "getLocationButton"
+  );
+
 
 myLocationButton.addEventListener("click", function () {
 
-  if (!navigator.geolocation) {
-    alert("Geolocation is not supported by your browser.");
-    return;
-  }
+    if (!navigator.geolocation) {
 
-  navigator.geolocation.getCurrentPosition(
-    async function (position) {
+      alert(
+        "Geolocation is not supported by your browser."
+      );
 
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      // Move map to user's location
-      map.setView([latitude, longitude], 17);
-
-      // Remove existing marker
-      if (marker) {
-        map.removeLayer(marker);
-      }
-
-      // Add marker
-      marker = L.marker([
-        latitude,
-        longitude
-      ]).addTo(map);
+      return;
+    }
 
 
-      // Reverse geocoding
-      const url =
-        `https://nominatim.openstreetmap.org/reverse?` +
-        `lat=${latitude}` +
-        `&lon=${longitude}` +
-        `&format=json`;
+    navigator.geolocation.getCurrentPosition(
 
-      try {
+      async function (position) {
 
-        const response = await fetch(url);
-        const data = await response.json();
+        const latitude =
+          position.coords.latitude;
 
-        const address = data.display_name;
+        const longitude =
+          position.coords.longitude;
 
 
-        // Show address in popup
-        marker
-          .bindPopup(`
-            <div class="location-popup">
-              <strong>Selected location</strong>
-              <p>${address}</p>
-              <button id="confirmLocation">
-                Confirm location
-              </button>
-            </div>
-          `)
-          .openPopup();
+        map.setView(
+          [latitude, longitude],
+          17
+        );
 
-      } catch (error) {
+
+        if (marker) {
+          map.removeLayer(marker);
+        }
+
+
+        marker = L.marker(
+          [latitude,longitude],
+          {alt: "Selected issue location"}
+        ).addTo(map);
+
+
+        const url =
+          `https://nominatim.openstreetmap.org/reverse?` +
+          `lat=${latitude}` +
+          `&lon=${longitude}` +
+          `&format=json`;
+
+
+        try {
+
+          const response =
+            await fetch(url);
+
+          const data =
+            await response.json();
+
+
+          const address =
+            data.display_name ||
+            "Address unavailable";
+
+
+          showLocationPopup(address);
+
+        } catch (error) {
+
+          console.error(error);
+
+          marker
+            .bindPopup(
+              "Unable to find the address."
+            )
+            .openPopup();
+        }
+      },
+
+
+      function (error) {
 
         console.error(error);
 
-        marker
-          .bindPopup("Unable to find the address.")
-          .openPopup();
+        alert(
+          "Unable to get your location."
+        );
       }
-
-    },
-
-    function (error) {
-      console.error(error);
-      alert("Unable to get your location.");
-    }
-  );
-
+    );
 });
 
 
+// ========================================
 // Address search
-const addressInput =
-  document.getElementById("address");
+// ========================================
 
-const searchButton =
-  document.getElementById("searchButton");
+const addressInput = document.getElementById(
+    "address"
+  );
 
 
-// Press Enter to search
+const searchButton = document.getElementById(
+    "searchButton"
+  );
+
+
 addressInput.addEventListener("keydown", function (event) {
 
   if (event.key === "Enter") {
-    searchButton.click();
-  }
 
+    searchButton.click();
+
+  }
 });
 
 
-// Search button
 searchButton.addEventListener("click", async function () {
 
-  const address = addressInput.value.trim();
+  const address =
+    addressInput.value.trim();
+
 
   if (!address) {
     return;
   }
+
 
   const url =
     `https://nominatim.openstreetmap.org/search?` +
     `q=${encodeURIComponent(address)}` +
     `&format=json`;
 
+
   try {
 
-    const response = await fetch(url);
-    const data = await response.json();
+    const response =
+      await fetch(url);
+
+    const data =
+      await response.json();
+
 
     if (data.length === 0) {
-      alert("Address not found.");
+
+      alert(
+        "Address not found."
+      );
+
       return;
     }
 
-    const latitude = parseFloat(data[0].lat);
-    const longitude = parseFloat(data[0].lon);
 
-    // Move map
+    const latitude =
+      parseFloat(data[0].lat);
+
+    const longitude =
+      parseFloat(data[0].lon);
+
+
     map.setView(
       [latitude, longitude],
       17
     );
 
-    // Remove old marker
+
     if (marker) {
       map.removeLayer(marker);
     }
 
-    // Create marker
-    marker = L.marker([
-      latitude,
-      longitude
-    ]).addTo(map);
+
+    marker = L.marker(
+      [latitude,longitude],
+      {alt: "Selected issue location"}
+    ).addTo(map);
 
 
-    // Show address
-    marker
-      .bindPopup(`
-        <div class="location-popup">
-          <strong>Selected location</strong>
-          <p>${data[0].display_name}</p>
-          <button id="confirmLocation">
-            Confirm location
-          </button>
-        </div>
-      `)
-      .openPopup();
+    showLocationPopup(
+      data[0].display_name
+    );
 
   } catch (error) {
 
     console.error(error);
-    alert("Unable to search for this address.");
 
+    alert(
+      "Unable to search for this address."
+    );
   }
-
 });
 
 
-// Click directly on map
+// ========================================
+// Click on map
+// ========================================
+
 map.on("click", async function (event) {
 
-  const latitude = event.latlng.lat;
-  const longitude = event.latlng.lng;
+  const latitude =
+    event.latlng.lat;
+
+  const longitude =
+    event.latlng.lng;
+
 
   if (marker) {
     map.removeLayer(marker);
   }
 
-  marker = L.marker([
-    latitude,
-    longitude
-  ]).addTo(map);
+
+  marker = L.marker(
+    [latitude,longitude],
+    {alt: "Selected issue location"}
+  ).addTo(map);
 
 
-  // Reverse geocoding
   const url =
     `https://nominatim.openstreetmap.org/reverse?` +
     `lat=${latitude}` +
     `&lon=${longitude}` +
     `&format=json`;
 
+
   try {
 
-    const response = await fetch(url);
-    const data = await response.json();
+    const response =
+      await fetch(url);
 
-    const address = data.display_name;
+    const data =
+      await response.json();
 
 
-    const popupContent = `
-      <div class="location-popup">
-        <strong>Selected location</strong>
-        <p>${address}</p>
-        <button id="confirmAddress">
-          Confirm address
-        </button>
-      </div>
-    `;
+    const address =
+      data.display_name ||
+      "Address unavailable";
 
-    marker
-      .bindPopup(popupContent)
-      .openPopup();
+
+    showLocationPopup(address);
 
   } catch (error) {
 
     console.error(error);
 
     marker
-      .bindPopup("Unable to find the address.")
+      .bindPopup(
+        "Unable to find the address."
+      )
       .openPopup();
   }
+});
+
+
+// ========================================
+// Confirm location
+// ========================================
+
+document.addEventListener("click", function (event) {
+
+  if (
+    event.target &&
+    event.target.classList.contains("confirm-location")
+  ) {
+      if (!marker) {
+        return;
+      }
+
+      const position = marker.getLatLng();
+
+      const locationData = {
+        address: event.target
+          .closest(".location-popup")
+          .querySelector("p")
+          .textContent,
+        latitude: position.lat,
+        longitude: position.lng
+      };
+
+      sessionStorage.setItem(
+        "selectedLocation",
+        JSON.stringify(locationData)
+      );
+
+
+      event.target.textContent = "✓ Location confirmed";
+      event.target.disabled = true;
+
+      console.log("Location confirmed", locationData);
+    }
 
 });
