@@ -7,6 +7,7 @@
     <title>Issue Reported Successfully</title>
 
     <link rel="stylesheet" href="Step_6_style.css" />
+    <script defer src="Step_6_script.js"></script>
   </head>
 
   <body>
@@ -28,7 +29,17 @@
       <section class="confirmation">
         <h2 class="visually-hidden">Confirmation</h2>
 
-        <p class="reference">Reference #FX-10248</p>
+        <div class="reference" id="referenceRow">
+          <p class="reference-text" id="referenceText">Reference #457723</p>
+          <button
+            type="button"
+            class="copy-button"
+            id="copyReferenceButton"
+            aria-label="Copy reference number to clipboard"
+          >
+            Copy
+          </button>
+        </div>
       </section>
 
       <section class="updates">
@@ -74,7 +85,7 @@
 
     <footer>
       <a href="/login">Log in / Register</a>
-      <a href="Endpage.html">Finish</a>
+      <a href="/">Finish</a>
     </footer>
   </body>
 </html>

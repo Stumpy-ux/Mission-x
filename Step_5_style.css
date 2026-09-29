@@ -21,7 +21,9 @@ body {
   line-height: 1.4;
 }
 
-/* Screen-reader-only content */
+/* Screen-reader-only content: visible to assistive tech,
+   invisible on screen. A CSS clipping technique, not ARIA —
+   native heading/label semantics still do the labelling. */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -92,8 +94,7 @@ main {
 
 .tooltip-step {
   font-family: "Inter", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
   margin: 0 0 4px;
 }
 
@@ -176,19 +177,59 @@ main {
   overflow: hidden;
 }
 
-.map img:first-child {
+.map-canvas {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
-.map-marker {
+/* Leaflet's own marker/tile layers render inside .map-canvas; while
+   editing is off, pointer events are blocked at the container level
+   (see .map--locked) so the map reads as a still image, but it's a
+   real Leaflet map underneath, not a screenshot. */
+.map--locked .map-canvas {
+  pointer-events: none;
+}
+
+.map .address-search {
   position: absolute;
-  top: 40%;
-  left: 45%;
-  width: 24px;
-  height: auto;
+  top: 12px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.map .address-search[hidden] {
+  display: none;
+}
+
+.map .address-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 28px;
+  border: none;
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+.map .address-search button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  background-color: #0fcaf5;
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map--editing {
+  outline: 3px solid #0fcaf5;
+  outline-offset: 2px;
 }
 
 .field label {
@@ -241,7 +282,7 @@ footer button {
 
   padding: 8px;
 
-  background: #0fcaf5; /* new button colour */
+  background: #0fcaf5;
   border: 2px solid #1b1b1b;
   border-radius: 5px;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
@@ -264,7 +305,7 @@ footer a {
 
   padding: 8px;
 
-  background: #0fcaf5; /* new button colour */
+  background: #0fcaf5;
   border: 2px solid #1b1b1b;
   border-radius: 5px;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
@@ -288,6 +329,171 @@ footer button:active,
 footer a:active {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* ==== Change-a-detail menu ==== */
+
+.change-detail-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.change-detail-menu[hidden] {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .change-detail-menu {
+    align-items: center;
+  }
+}
+
+.change-detail-menu__panel {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border: 1px solid #1b1b1b;
+  border-radius: 12px 12px 0 0;
+  padding: 20px 18px calc(20px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 600px) {
+  .change-detail-menu__panel {
+    border-radius: 12px;
+    padding: 20px 18px;
+  }
+}
+
+.change-detail-menu__panel h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.change-detail-menu__panel button {
+  min-height: 48px;
+  padding: 8px 16px;
+  background: #0fcaf5;
+  border: 2px solid #1b1b1b;
+  border-radius: 5px;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.change-detail-menu__panel button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.change-detail-menu__panel button:focus-visible {
+  outline: 3px solid #1b1b1b;
+  outline-offset: 3px;
+}
+
+.change-detail-menu__cancel {
+  background: #f3f3f3 !important;
+}
+
+/* ==== Inline editing (issue detail + location) ==== */
+
+.issue-text-input {
+  width: 100%;
+  margin: 20px 0 0;
+  padding: 15px 10px;
+  background: #ffffff;
+  border: 1px solid #1b1b1b;
+  border-radius: 5px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.inline-edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.inline-edit-actions button {
+  flex: 1;
+  min-height: 40px;
+  padding: 8px 12px;
+  background: #0fcaf5;
+  border: 2px solid #1b1b1b;
+  border-radius: 5px;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inline-edit-actions button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.inline-edit-cancel {
+  background: #f3f3f3 !important;
+}
+
+/* ==== Photos: always-editable slots ==== */
+
+.photo--wrapper {
+  position: relative;
+}
+
+.photo--wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #1b1b1b;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1b1b1b;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ==== Confirmation flash after returning from an edit step ==== */
+
+@keyframes just-updated-flash {
+  0% {
+    box-shadow: 0 0 0 3px #0fcaf5;
+  }
+  100% {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+
+.just-updated {
+  animation: just-updated-flash 1.5s ease-out;
 }
 
 /* ==== Responsive breakpoints ==== */
