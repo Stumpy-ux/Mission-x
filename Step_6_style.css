@@ -78,8 +78,9 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 8px;
   flex: 0 0 auto;
   width: clamp(64px, 14vw, 78px);
 }
