@@ -1,6 +1,7 @@
+/* ====== Coded By Emily ====== */
 /* ==== Fonts ==== */
 
-@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap");
 
 /* ========== Page set ========== */
 * {
@@ -13,391 +14,635 @@ html {
 
 html,
 body {
-  height: 100dvh;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  margin: 0;
+  padding: 16px max(16px, calc((100% - 1000px) / 2));
+
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
+
   background: #ffffff;
   color: #1b1b1b;
   font-family: "Inter", sans-serif;
-  font-size: 16px;
   line-height: 1.4;
 }
 
-/* ========== Page ========== */
-main {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  width: 100%;
-  padding: 16px 18px;
-  background: #f3f3f3;
-}
-
-@media (min-width: 600px) {
-  main {
-    max-width: 480px;
-    margin: 0 auto;
-  }
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
 /* ========== Header ========== */
 .header {
   display: flex;
-  align-items: flex-start;
-  gap: 22px;
-
+  align-items: stretch;
+  gap: clamp(8px, 4vw, 24px);
+  
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 8px;
 }
 
 .logo {
-  width: 102px;
-  height: 109px;
+  width: clamp(64px, 14vw, 78px);
+  height: auto;
   object-fit: contain;
+  aspect-ratio: 102 / 109;
   flex-shrink: 0;
 }
 
-.tooltip {
-  padding: 12px 16px 18px;
-  background: #ffffff;
-  border: 3px solid #1b1b1b;
-  border-radius: 12px;
-  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.16);
+.page-title {
+  flex: 1;
+  min-width: 0;
+  margin: 8px 0;
+  padding: clamp(10px, 3vw, 12px);
+  background: #F9F7F1;
+  border: 2px dashed #849675;
+  border-radius: 20px;
+  /*box-shadow: 0 4px 2px rgba(0, 0, 0, 0.10);*/
 }
 
-.tooltip h1 {
+.page-title h1 {
   margin: 0;
   width: 100%;
-  font-size: 16px;
+  font-size: clamp(16px, 3vw, 18px);
+  font-weight: 600;
+  color: #526748;
 }
 
-@media (min-width: 400px) {
-  .tooltip h1 {
-    font-size: 18px;
-  }
+/* ========== Main ========== */
+main {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
 }
 
-@media (min-width: 600px) {
-  .tooltip h1 {
-    font-size: 20px;
-  }
-}
-
-/* ========== Empty state section ========== */
+/* ========== File Input ========== */
 
 .file-input-container {
   width: 100%;
-  margin: 20px auto 0;
-
-  border: 1px dashed #1b1b1b;
-  border-radius: 12px;
-  padding: 32px 8px;
+  margin: 0 auto;
+  
+  flex: 1 1 0;
+  min-height: 0;
+  
+  border: 1px dashed #BDC9C6;
+  border-radius: 8px;
+  padding: clamp(16px, 4vh, 32px) 8px;
   background: white;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2.5vh, 24px);
+
+  overflow-y: auto;
+}
+
+/* ========== Empty State ========== */
+
+.file-input-text {
+  width: 100%;
+
+  flex: 1 1 0;
+  min-height: min-content;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
+
+  text-align: center;
+
+  gap: clamp(8px, 2vh, 12px);
 }
 
 .file-input-icon {
-  width: 64px;
-  height: 64px;
-  background: #c5f1f8;
-  border-radius: 50%;
-
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .file-input-icon img {
-  width: 32px;
-  height: 32px;
-}
+  width: clamp(36px, 6vh, 48px);
+  height: clamp(36px, 6vh, 48px);
 
-.file-input-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-}
-
-.file-input-text h2,
-.file-input-text p {
-  margin: 0;
+  object-fit: contain;
 }
 
 .file-input-text h2 {
-  font-size: 20px;
+  margin: 0;
+
+  font-size: clamp(16px, 2.5vh, 20px);
+  line-height: 1.3;
 }
 
 .file-input-text p {
-  font-size: 16px;
+  width: min(280px, 90%);
+
+  margin: 0;
+
+  font-size: clamp(12px, 1.8vh, 14px);
+  line-height: 1.5;
 }
 
-/* ========== Button file upload section ========== */
+/* ========== Upload Section ========== */
 
 .file-upload-section {
   width: 100%;
 
+  flex: 0 0 auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  gap: clamp(8px, 2vh, 16px);
+}
+
+.file-input-button {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: clamp(8px, 2vh, 16px);
+}
+
+.file-input-button button {
+  width: 50%;
+  min-height: clamp(60px, 10vh, 88px);
+
+  padding: clamp(8px, 2vh, 16px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: clamp(4px, 1vh, 8px);
+
+  background: #C5F1F8;
+  border: 2px solid transparent;
+  border-radius: 20px;
+
+  font-size: clamp(12px, 1.8vh, 14px);
+
+  cursor: pointer;
+}
+
+.file-input-button button img {
+  width: clamp(24px, 4vh, 32px);
+  height: clamp(24px, 4vh, 32px);
+
+  object-fit: contain;
+}
+
+.file-requirements {
+  width: 100%;
+
+  margin: 0;
+
+  font-size: clamp(10px, 1.6vh, 12px);
+  line-height: 1.4;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   Selected File State
+========================================================= */
+
+.file-input-container.has-file {
+  flex: 0 1 auto;
+  min-height: auto;
+
+  overflow: visible;
 
   gap: 16px;
 }
 
-.file-upload-section p {
-  margin: 0;
-  margin-bottom: 8px;
+.file-input-container.has-file .file-input-text {
+  display: none;
 }
 
-.file-input-button {
+.file-input-container.has-file .file-upload-section {
+  width: 100%;
+}
+
+
+/* =========================================================
+   Compact Upload Buttons
+========================================================= */
+
+.file-input-container.has-file .file-input-button {
+  width: 100%;
+
   display: flex;
-  justify-content: center;
-  gap: 24px;
+  flex-direction: row;
+  align-items: stretch;
+
+  gap: clamp(8px, 2vw, 16px);
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  
 }
 
-@media (max-width: 374px) {
-  .file-input-button {
-    flex-direction: column;
-    align-items: center;
-  }
-}
+.file-input-container.has-file .file-input-button button {
+  flex: 1 1 0;
+  min-width: 120px;
 
-.file-input-button button {
-  width: 100px;
-  height: 80px;
+  width: auto;
+  height: auto;
+
+  min-height: clamp(56px, 8vh, 80px);
+
+  padding: clamp(6px, 1.5vw, 12px);
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
 
-  background: #c5f1f8;
-  border: 2px solid transparent;
-  border-radius: 12px;
+  gap: clamp(4px, 1vw, 8px);
 
-  color: #1b1b1b;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
 }
 
-.file-input-button button:focus-visible {
-  outline: 3px solid #1b1b1b;
-  outline-offset: 3px;
+.file-input-container.has-file .file-input-button button img {
+  width: clamp(20px, 6vw, 28px);
+  height: clamp(20px, 6vw, 28px);
+
+  flex-shrink: 0;
 }
 
-/* Mobile: touch press */
-.file-input-button button:active {
-  transform: scale(0.98);
-}
 
-.file-input-button button img {
-  width: 24px;
-  height: 24px;
-  display: block;
-}
+/* =========================================================
+   File Status Container
+========================================================= */
 
-/* ========== Buttons ========== */
-.navigation-buttons {
-  flex: 0 0 auto;
+.file-status-container {
   width: 100%;
-  display: flex;
-  gap: 22px;
-  margin-top: auto;
-  padding: 14px 18px calc(20px + env(safe-area-inset-bottom));
-  background: #f3f3f3;
-}
 
-@media (min-width: 600px) {
-  .navigation-buttons {
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+  flex: 1 1 0;
+  min-height: 0;
 
-.navigation-buttons button {
-  flex: 1;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-
-  padding: 8px;
-
-  background: #0fcaf5;
-  border: 2px solid #1b1b1b;
-  border-radius: 5px;
-  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
-
-  color: #1b1b1b;
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: center;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.navigation-buttons button:focus-visible {
-  outline: 3px solid #1b1b1b;
-  outline-offset: 3px;
-}
-
-.navigation-buttons button:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
-}
-
-/* ========== File state ========== */
-/* ========== Ready / Uploading card ========== */
-
-.file-state {
-  width: calc(100% - 36px);
   margin: 16px auto 0;
 
-  padding: 16px;
-  border: 1px solid #1b1b1b;
-  border-radius: 12px;
-  background: white;
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   Attached / Failed Filter Buttons
+========================================================= */
+
+.file-status-summary {
+  width: 100%;
+
+  display: flex;
+
+  gap: 16px;
+
+  flex-shrink: 0;
+}
+
+.status-button {
+  flex: 1;
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    outline 0.15s ease;
+}
+
+.attached-button {
+  background: #DDF5E8;
+}
+
+.failed-button {
+  background: #FCE1E1;
+}
+
+.failed-button img {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* Active filter */
+
+.status-button.active {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+
+  opacity: 1;
+}
+
+.status-button:not(.active) {
+  opacity: 0.65;
+}
+
+
+/* Disabled filter */
+
+.status-button:disabled {
+  opacity: 0.35;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   File Status
+========================================================= */
+
+.file-status {
+  flex: 1 1 0;
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
 
   display: flex;
   flex-direction: column;
+
   gap: 12px;
 }
 
-@media (min-width: 600px) {
-  .file-state {
-    width: 100%;
-    max-width: 480px;
-  }
+
+/* =========================================================
+   File State Card
+========================================================= */
+
+.file-state {
+  width: 100%;
+  flex-shrink: 0;
+
+
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  border: 1px solid #BDC9C6;
+  border-radius: 16px;
+
+  background: white;
 }
+
+
+/* =========================================================
+   File Info
+========================================================= */
 
 .file-info {
   width: 100%;
 
   display: flex;
   align-items: center;
+
   gap: 12px;
 }
 
 .file-preview {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
 
   object-fit: cover;
 
   border-radius: 8px;
-  background: #e8efed;
 }
 
-.file-details {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
 
+/* =========================================================
+   File Details
+========================================================= */
+
+.file-details {
+  min-width: 0;
   flex: 1;
 }
 
-.file-details p {
-  margin: 0;
-}
-
 .file-name {
-  font-size: 16px;
-  font-weight: 600;
-}
+  margin: 0 0 4px;
 
-#uploadStatus {
   font-size: 14px;
-  color: #5f6b68;
-}
+  font-weight: 600;
 
-.remove-button {
-  width: 40px;
-  height: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: none;
-  background: #ffdad6;
-  border-radius: 50%;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.remove-button img {
-  width: 24px;
-  height: 24px;
-}
-
-.progress-container {
-  width: 100%;
-  height: 6px;
-
-  background: #e8efed;
-  border-radius: 999px;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.progress-bar {
-  width: 0%;
-  height: 100%;
-
-  background: #0fcaf5;
-  border-radius: inherit;
+.upload-status,
+.uploaded-status,
+.failed-status {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
 }
+
+
+/* =========================================================
+   File Actions
+========================================================= */
 
 .file-actions {
   display: flex;
   align-items: center;
+
   gap: 8px;
-  margin-left: auto;
+
+  flex-shrink: 0;
 }
 
 .progress-percent {
-  min-width: 40px;
-  text-align: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 
+.remove-button,
 .action-button {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
+
+  padding: 8px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  background: transparent;
+
   border: none;
-  background: #f2f3ff;
-  border-radius: 50%;
+
   cursor: pointer;
 }
 
+.remove-button img,
 .action-button img {
   width: 24px;
   height: 24px;
+
+  object-fit: contain;
 }
 
+
+/* =========================================================
+   Uploaded State
+========================================================= */
+
+.success-icon,
+.failure-icon {
+  width: 16px;
+  height: 16px;
+
+  vertical-align: middle;
+}
+
+/* ========== Step navigation buttons ========== */
+
+.navigation-buttons {
+  display: flex;
+  
+  gap: clamp(12px, 3vw, 16px);
+  
+  margin-top: 16px;
+  
+  flex-shrink: 0;
+}
+
+.back-button,
+.next-button {  
+  min-height: 48px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  gap: 8px;
+  
+  padding: 12px 16px;
+  
+  border: 1px solid #000;
+  border-radius: 8px;
+  
+  font-size: 16px;
+  
+  cursor: pointer;
+}
+
+.back-button {
+  background: #fff;
+  color: #000;
+  flex: 1;
+
+}
+
+.next-button {
+  background: #000;
+  color: #fff;
+  flex: 5;
+
+}
+
+.back-button img,
+.next-button img {
+  width: 20px;
+  height: 20px;
+  
+  object-fit: contain;
+}
+
+.next-button img {
+  filter: invert(1);
+}
+
+/* ========== Button interaction ========== */
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* =========================================================
+   Hidden
+========================================================= */
+
 [hidden] {
-  display: none;
+  display: none !important;
+}
+
+
+/* =========================================================
+   Small Height Screens
+========================================================= */
+
+@media (max-height: 600px) {
+
+  .file-input-button {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .file-input-button button {
+    width: 30%;
+    height: auto;
+  }
+}
+
+
+/* =========================================================
+   Small Width Screens
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .file-input-container {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .file-input-container.has-file .file-input-button {
+    gap: 8px;
+  }
+
+  .file-input-container.has-file .file-input-button button {
+    width: auto;
+  }
 }
