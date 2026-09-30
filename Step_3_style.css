@@ -20,7 +20,7 @@ body {
 }
 
 body {
-     padding: max(50px, calc(env(safe-area-inset-top) + 16px)) 16px max(28px, calc(env(safe-area-inset-bottom) + 16px));
+      padding: max(24px, calc(env(safe-area-inset-top) + 16px)) 16px max(28px, calc(env(safe-area-inset-bottom) + 16px));
 
    height: 100vh;
   height: 100dvh;
