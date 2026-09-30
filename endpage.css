@@ -1,6 +1,5 @@
 /* ====== Coded By Stumpyux (Iain) ====== */
 /* ==== Fonts ==== */
-
 @import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400&display=swap");
 
 /* ==== Base ==== */
@@ -24,12 +23,16 @@ body {
 }
 
 /*Background*/
+html,
+body {
+  height: 100%;
+}
 body {
   font-family: "Tahoma", sans-serif;
   background-color: rgba(255, 255, 255, 0.5);
 
-  background-image: url("assets/Fake\ council\ mobile.png");
-  background-size: 100%;
+  background-image: url("assets/Mission\ complete.png");
+  background-size: 70%;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
@@ -37,13 +40,13 @@ body {
   color: black;
 }
 
-/* ==== Fixed width, scales down / caps like Step 3-6 ==== */
+/* ==== Fixed width, scales down / caps like Step 3-6 ==== 
 @media (min-width: 600px) {
   body {
     max-width: 480px;
     margin: 0 auto;
   }
-}
+} */
 
 p {
   font-size: 24px;
