@@ -1,5 +1,3 @@
-/* ====== Coded By Stumpyux (Iain) ====== */
-
 /* ==== Fonts ==== */
 
 @import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&family=Inter:wght@400&display=swap");
@@ -33,7 +31,7 @@ body {
 main {
   height: 100%;
   width: 100%;
-  padding: 16px 18px;
+  padding: 16px;
   background: #f3f3f3;
 
   display: flex;
@@ -44,20 +42,18 @@ main {
   text-align: center;
 }
 
-@media (min-width: 600px) {
-  main {
-    max-width: 480px;
-    margin: 0 auto;
-  }
-}
-
 /* ==== Spinner ====
    The logo itself is the spinner: each group inside the SVG (arcs,
    phone, wordmark, scene, the checkmark) animates on its own rather
    than spinning the whole flat logo as one piece. The SVG markup
    lives in its own file (assets/fixit-logo-spinner.svg) and is
    fetched + injected into #spinnerStage at load time by
-   Step_5_5_script.js, */
+   Step_5_5_script.js, so these rules target it by id/tag rather than
+   a class on the <svg> tag itself. Transform origins below are given
+   in the real logo's own coordinate space (viewBox is 0 0 657 704),
+   picked to match where each group's shapes actually sit — the arcs
+   and phone cluster near the top (roughly x:330 y:120-150), the
+   checkmark sits at its own circle center (x:520 y:536). */
 
 .spinner-stage {
   width: 160px;
@@ -71,18 +67,26 @@ main {
   overflow: visible;
 }
 
-#logo-arcs {
-  transform-origin: 330px 150px;
-  animation: spinner-rotate 2.4s linear infinite;
-}
+/* Every group pulses (expands and fades slightly, then settles back).
+   Small delays stagger them so it ripples through the logo instead of
+   everything moving in lock-step. */
 
 #logo-phone {
   transform-origin: 330px 120px;
   animation: spinner-pulse 1.4s ease-in-out infinite;
 }
 
+#logo-arcs {
+  transform-origin: 330px 150px;
+  animation: spinner-pulse 1.4s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
 #logo-wordmark {
-  animation: spinner-bob 1.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spinner-pulse-soft 1.4s ease-in-out infinite;
+  animation-delay: 0.2s;
 }
 
 #logo-check {
@@ -91,13 +95,11 @@ main {
   animation-delay: 0.4s;
 }
 
-@keyframes spinner-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#logo-scene {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spinner-pulse-soft 1.4s ease-in-out infinite;
+  animation-delay: 0.4s;
 }
 
 @keyframes spinner-pulse {
@@ -112,20 +114,25 @@ main {
   }
 }
 
-@keyframes spinner-bob {
+/* Gentler version for the two large groups (wordmark and scene), so
+   they don't grow past the edges of the logo. */
+@keyframes spinner-pulse-soft {
   0%,
   100% {
-    transform: translateY(0);
+    transform: scale(1);
+    opacity: 1;
   }
   50% {
-    transform: translateY(-4px);
+    transform: scale(1.06);
+    opacity: 0.8;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  #logo-scene,
   #logo-arcs,
-  #logo-phone,
   #logo-wordmark,
+  #logo-phone,
   #logo-check {
     animation: none;
   }
@@ -145,10 +152,11 @@ main {
 .quote {
   margin: 0;
   width: 100%;
+  max-width: 480px;
   padding: 16px 18px;
   background: #ffffff;
   border: 1px solid #1b1b1b;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 4px 2px rgba(0, 0, 0, 0.16);
 }
 

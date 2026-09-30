@@ -1,8 +1,15 @@
-/* ====== Coded By Stumpyux (Iain) ====== */
-
 /* ===================================================================
    Step 6 — Issue Reported Successfully
-   ===================================================================*/
+   ===================================================================
+   Reads the reference number Step 5.5 generated and stored, so this
+   page shows the real one instead of the hardcoded placeholder that
+   was in the original markup. If someone lands here directly with
+   nothing saved yet, one is generated and saved right here instead
+   (same FX-###### format Step 5.5 uses), so the page never shows a
+   stale placeholder number.
+
+   Also wires up the "Copy" button next to the reference number.
+   =================================================================== */
 
 const REPORT_KEY = "fixit_report";
 const COPY_RESET_MS = 1500;
@@ -58,7 +65,8 @@ async function copyToClipboard(text) {
   }
 }
 
-
+/* Shows an error banner directly on the page, so a problem here is
+   visible without opening DevTools at all. */
 function showPageError(message) {
   console.error("[FixIt]", message);
   let banner = document.getElementById("fixitDebugBanner");
