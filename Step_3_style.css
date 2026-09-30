@@ -22,9 +22,8 @@ body {
 body {
      padding: max(50px, calc(env(safe-area-inset-top) + 16px)) 16px max(28px, calc(env(safe-area-inset-bottom) + 16px));
 
-  min-height: 100vh;
-  min-height: 100dvh;
-
+   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
 
@@ -82,6 +81,7 @@ select {
 main {
   flex: 1;
   min-height: 0;
+  overflow-y: auto;
 
   display: flex;
   flex-direction: column;
@@ -199,7 +199,7 @@ main {
   width: 100%;
 
   flex: 1;
-  min-height: 0;
+  min-height: 250px;
 
   border-radius: 8px;
 
