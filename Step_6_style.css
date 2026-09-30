@@ -275,9 +275,7 @@ footer {
 
 /* ==== Footer buttons ====
    Shared layout/typography lives on .footer-button; each button's own
-   look (color, border, shadow) lives on its own modifier class below,
-   so the two can now be styled independently instead of both moving
-   together off one shared "footer a" rule. */
+   look (color, border, shadow) */
 
 .footer-button {
   flex: 1;
