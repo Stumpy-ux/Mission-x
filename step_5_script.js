@@ -1,8 +1,6 @@
-/* ====== Coded By Stumpyux (Iain) ====== */
-
 /* ===================================================================
    Step 5 — Confirm Details
-   ===================================================================*/
+   ================================================================== */
 
 const REPORT_KEY = "fixit_report";
 const MAX_PHOTOS = 4;
@@ -23,7 +21,10 @@ function saveReport(partial) {
   return updated;
 }
 
-/* ---- Populate the page from whatever has been saved so far ----- */
+/* ---- Populate the page from whatever has been saved so far --------
+   Falls back to the hard-coded markup already in the HTML, so the
+   page still looks right the very first time, before anything's
+   been saved. */
 function renderReport(report) {
   if (report.description) {
     document.querySelector(".issue-text").textContent = report.description;
@@ -34,21 +35,21 @@ function renderReport(report) {
   initializePhotoSlots(report.photos);
 }
 
-/* ---- Photos:  */
+/* ---- Photos: */
 function initializePhotoSlots(savedPhotos) {
   const slots = document.querySelectorAll(".photo-list li");
   slots.forEach((slot, index) => {
     const saved = savedPhotos && savedPhotos[index];
     const existingImg = slot.querySelector("img.photo--filled");
-    const photoUrl =
-      saved || (existingImg ? existingImg.getAttribute("src") : null);
+    const photoUrl = saved || (existingImg ? existingImg.getAttribute("src") : null);
     setPhotoSlot(slot, photoUrl);
   });
 }
 
 function currentPhotosFromDom() {
   return Array.from(document.querySelectorAll(".photo-list li")).map((slot) => {
-    const img = slot.querySelector("img");
+    // Only a real photo counts; the icon inside an empty slot does not
+    const img = slot.querySelector("img.photo--filled, .photo--filled img");
     return img ? img.getAttribute("src") : null;
   });
 }
@@ -71,6 +72,7 @@ function setPhotoSlot(slot, photoDataUrl) {
     removeButton.textContent = "×";
     removeButton.addEventListener("click", (event) => {
       event.stopPropagation();
+      if (!photoEditing) return;
       removePhoto(slot);
     });
 
@@ -82,7 +84,9 @@ function setPhotoSlot(slot, photoDataUrl) {
     addButton.type = "button";
     addButton.className = "photo photo--empty";
     addButton.innerHTML = `<img src="assets/icon-photo.png" alt="" /><span class="photo-add-label">Add</span>`;
-    addButton.addEventListener("click", () => triggerPhotoPicker(slot));
+    addButton.addEventListener("click", () => {
+      if (photoEditing) triggerPhotoPicker(slot);
+    });
     slot.appendChild(addButton);
   }
 }
@@ -109,13 +113,55 @@ function triggerPhotoPicker(slot) {
 
 function addPhoto(slot, dataUrl) {
   setPhotoSlot(slot, dataUrl);
-  saveReport({ photos: currentPhotosFromDom().slice(0, MAX_PHOTOS) });
-  flashUpdated(slot);
 }
 
 function removePhoto(slot) {
   setPhotoSlot(slot, null);
-  saveReport({ photos: currentPhotosFromDom() });
+}
+
+/* ---- Photos: locked until "Photos" is picked in the Change a Detail
+   menu. While editing, empty slots add and the × removes; nothing is
+   saved until Save, and Cancel puts back what was there before. */
+let photoEditing = false;
+let photoEditActions = null;
+let preEditPhotos = null;
+
+function enablePhotoEditing() {
+  if (photoEditing) return;
+  photoEditing = true;
+  preEditPhotos = currentPhotosFromDom();
+
+  const list = document.querySelector(".photo-list");
+  list.classList.remove("photo-list--locked");
+  list.classList.add("photo-list--editing");
+
+  photoEditActions = buildSaveCancelRow(savePhotoEdit, cancelPhotoEdit);
+  list.insertAdjacentElement("afterend", photoEditActions);
+  list.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function finishPhotoEditing() {
+  photoEditing = false;
+  const list = document.querySelector(".photo-list");
+  list.classList.add("photo-list--locked");
+  list.classList.remove("photo-list--editing");
+  if (photoEditActions) {
+    photoEditActions.remove();
+    photoEditActions = null;
+  }
+}
+
+function savePhotoEdit() {
+  saveReport({ photos: currentPhotosFromDom().slice(0, MAX_PHOTOS) });
+  finishPhotoEditing();
+  flashUpdated(document.querySelector(".photo-list"));
+}
+
+function cancelPhotoEdit() {
+  document.querySelectorAll(".photo-list li").forEach((slot, index) => {
+    setPhotoSlot(slot, preEditPhotos && preEditPhotos[index]);
+  });
+  finishPhotoEditing();
 }
 
 /* ---- Issue detail: "Change a Detail" turns the text into a textarea */
@@ -136,7 +182,7 @@ function editDescription() {
       swapIn(textarea.parentElement, textEl);
       flashUpdated(textEl);
     },
-    () => swapIn(textarea.parentElement, textEl),
+    () => swapIn(textarea.parentElement, textEl)
   );
 
   const container = document.createElement("div");
@@ -147,7 +193,8 @@ function editDescription() {
   textarea.focus();
 }
 
-/* ---- Location: a REAL map (Leaflet + OpenStreetMap tiles) */
+/* ---- Location: a fully interactive map — click to drop
+   the pin, or search an address    */
 const DEFAULT_MAP_CENTER = { lat: -36.8485, lng: 174.7633 }; // Auckland; used only until a real location is saved
 let map = null;
 let marker = null;
@@ -157,10 +204,8 @@ let preEditLocation = null;
 function initMap() {
   const report = getReport();
   const saved = report.location || {};
-  const lat =
-    typeof saved.lat === "number" ? saved.lat : DEFAULT_MAP_CENTER.lat;
-  const lng =
-    typeof saved.lng === "number" ? saved.lng : DEFAULT_MAP_CENTER.lng;
+  const lat = typeof saved.lat === "number" ? saved.lat : DEFAULT_MAP_CENTER.lat;
+  const lng = typeof saved.lng === "number" ? saved.lng : DEFAULT_MAP_CENTER.lng;
 
   map = L.map("mapCanvas", {
     zoomControl: false,
@@ -178,22 +223,16 @@ function initMap() {
 
   marker = L.marker([lat, lng]).addTo(map);
 
+  // The map only becomes interactive via Change a Detail > Location
   document.getElementById("mapSection").classList.add("map--locked");
-  document.getElementById("mapSection").addEventListener("click", () => {
-    if (!editingLocation()) enableMapEditing();
-  });
 
-  document
-    .getElementById("mapSearchButton")
-    .addEventListener("click", handleAddressSearch);
-  document
-    .getElementById("mapAddressInput")
-    .addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        handleAddressSearch();
-      }
-    });
+  document.getElementById("mapSearchButton").addEventListener("click", handleAddressSearch);
+  document.getElementById("mapAddressInput").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleAddressSearch();
+    }
+  });
 }
 
 function editingLocation() {
@@ -203,10 +242,7 @@ function editingLocation() {
 function enableMapEditing() {
   if (editingLocation()) return;
 
-  preEditLocation = {
-    ...marker.getLatLng(),
-    address: document.getElementById("location").value,
-  };
+  preEditLocation = { ...marker.getLatLng(), address: document.getElementById("location").value };
 
   const section = document.getElementById("mapSection");
   section.classList.remove("map--locked");
@@ -222,13 +258,9 @@ function enableMapEditing() {
 
   const addressSearch = document.getElementById("addressSearch");
   addressSearch.hidden = false;
-  document.getElementById("mapAddressInput").value =
-    document.getElementById("location").value;
+  document.getElementById("mapAddressInput").value = document.getElementById("location").value;
 
-  locationEditActions = buildSaveCancelRow(
-    saveLocationEdit,
-    cancelLocationEdit,
-  );
+  locationEditActions = buildSaveCancelRow(saveLocationEdit, cancelLocationEdit);
   section.insertAdjacentElement("afterend", locationEditActions);
 }
 
@@ -307,9 +339,7 @@ async function forwardGeocode(query) {
 
 function saveLocationEdit() {
   const { lat, lng } = marker.getLatLng();
-  const address =
-    document.getElementById("mapAddressInput").value.trim() ||
-    document.getElementById("location").value;
+  const address = document.getElementById("mapAddressInput").value.trim() || document.getElementById("location").value;
 
   document.getElementById("location").value = address;
   saveReport({ location: { lat, lng, address } });
@@ -333,6 +363,7 @@ function buildSaveCancelRow(onSave, onCancel) {
 
   const saveButton = document.createElement("button");
   saveButton.type = "button";
+  saveButton.className = "inline-edit-save";
   saveButton.textContent = "Save";
   saveButton.addEventListener("click", onSave);
 
@@ -342,8 +373,8 @@ function buildSaveCancelRow(onSave, onCancel) {
   cancelButton.textContent = "Cancel";
   cancelButton.addEventListener("click", onCancel);
 
-  row.appendChild(saveButton);
   row.appendChild(cancelButton);
+  row.appendChild(saveButton);
   return row;
 }
 
@@ -366,9 +397,9 @@ function createChangeDetailMenu() {
   menu.innerHTML = `
     <div class="change-detail-menu__panel" role="dialog" aria-modal="true" aria-labelledby="changeDetailHeading">
       <h2 id="changeDetailHeading">What do you need to change?</h2>
-      <button type="button" data-field="description">Issue detail</button>
-      <button type="button" data-field="photos">Photos</button>
-      <button type="button" data-field="location">Location</button>
+      <button type="button" class="change-detail-menu__option" data-field="description">Issue detail</button>
+      <button type="button" class="change-detail-menu__option" data-field="photos">Photos</button>
+      <button type="button" class="change-detail-menu__option" data-field="location">Location</button>
       <button type="button" class="change-detail-menu__cancel">Cancel</button>
     </div>
   `;
@@ -385,10 +416,7 @@ function createChangeDetailMenu() {
 
   const fieldHandlers = {
     description: editDescription,
-    photos: () =>
-      document
-        .querySelector(".photo-list")
-        .scrollIntoView({ behavior: "smooth", block: "center" }),
+    photos: enablePhotoEditing,
     location: enableMapEditing,
   };
 
@@ -412,9 +440,45 @@ function closeChangeDetailMenu(menu) {
   menu.hidden = true;
 }
 
+/* ---- Bring in what the earlier steps saved ------------------------
+   Step 3 (Emily) saves the confirmed location to
+   sessionStorage["selectedLocation"] as { address, latitude, longitude }.
+   Step 4 will save photos to sessionStorage["selectedPhotos"] as an
+   array of image data URLs. Each is copied into the shared report once
+   and then cleared, so edits made on this page are never overwritten
+   by a stale copy on reload. */
+function importFromEarlierSteps() {
+  try {
+    const loc = JSON.parse(sessionStorage.getItem("selectedLocation"));
+    if (loc && typeof loc.latitude === "number" && typeof loc.longitude === "number") {
+      saveReport({
+        location: { lat: loc.latitude, lng: loc.longitude, address: loc.address || "" },
+      });
+      sessionStorage.removeItem("selectedLocation");
+    }
+  } catch (error) {
+    console.error("Could not read the saved location:", error);
+  }
+
+  try {
+    const photos = JSON.parse(sessionStorage.getItem("selectedPhotos"));
+    if (Array.isArray(photos)) {
+      const valid = photos
+        .filter((src) => typeof src === "string" && src.startsWith("data:image"))
+        .slice(0, MAX_PHOTOS);
+      saveReport({ photos: valid });
+      sessionStorage.removeItem("selectedPhotos");
+    }
+  } catch (error) {
+    console.error("Could not read the saved photos:", error);
+  }
+}
+
 /* ---- Wire it all up ------------------------------------------------ */
 document.addEventListener("DOMContentLoaded", () => {
+  importFromEarlierSteps();
   renderReport(getReport());
+  document.querySelector(".photo-list").classList.add("photo-list--locked");
   initMap();
 
   const changeButton = document.querySelector("footer button");
