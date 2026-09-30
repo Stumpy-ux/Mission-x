@@ -21,7 +21,9 @@ body {
   line-height: 1.4;
 }
 
-/* Screen-reader-only content */
+/* Screen-reader-only content: visible to assistive tech,
+   invisible on screen. A CSS clipping technique, not ARIA —
+   native heading/label semantics still do the labelling. */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -54,25 +56,22 @@ body {
 main {
   flex: 1 1 auto;
   overflow-y: auto;
+  scrollbar-gutter: stable;
   width: 100%;
-  padding: 16px 18px;
+  /* Background runs full width; the content sits in a centred column
+     up to 1000px wide (16px minimum side padding on small screens) */
+  padding: 16px max(16px, calc((100% - 1000px) / 2));
   background: #f3f3f3;
-}
-
-@media (min-width: 600px) {
-  main {
-    max-width: 480px;
-    margin: 0 auto;
-  }
 }
 
 /* ==== Logo and tooltip ==== */
 
 .hero {
   display: flex;
-  align-items: flex-start;
-  gap: 22px;
+  align-items: stretch;
+  gap: clamp(8px, 4vw, 24px);
   min-height: 0;
+  margin-bottom: 8px;
 }
 
 .hero > img {
@@ -83,24 +82,41 @@ main {
 }
 
 .tooltip {
-  background: #ffffff;
-  border: 3px solid #1b1b1b;
-  border-radius: 12px;
-  padding: 12px 16px 18px;
-  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.16);
+  flex: 1;
+  min-width: 0;
+  margin: 8px 0;
+  background: #f9f7f1;
+  border: 2px dashed #849675;
+  border-radius: 20px;
+  padding: clamp(10px, 3vw, 12px);
 }
 
 .tooltip-step {
   font-family: "Inter", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
   margin: 0 0 4px;
 }
 
 .tooltip-text {
   font-family: "Inter", sans-serif;
-  font-size: 16px;
+  font-size: clamp(16px, 3vw, 18px);
+  font-weight: 600;
+  color: #526748;
   margin: 0;
+}
+
+/* Very narrow phones: logo sits above the title box instead of beside it */
+@media (max-width: 360px) {
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .hero > img {
+    align-self: center;
+    flex: 0 0 auto;
+  }
 }
 
 /* ==== Issue description ==== */
@@ -110,7 +126,7 @@ main {
   padding: 15px 10px;
   background: #ffffff;
   border: 1px solid #1b1b1b;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
   line-height: 1.4;
 }
@@ -120,7 +136,10 @@ main {
 .photo-list {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Slots grow with the screen up to 120px each, then stop, so they
+     don't become giant squares on wide screens */
+  grid-template-columns: repeat(4, minmax(0, 120px));
+  justify-content: space-between;
   gap: 12px;
   margin: 20px 0 0;
   padding: 0;
@@ -129,7 +148,7 @@ main {
 .photo {
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 5px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,6 +173,17 @@ main {
   height: 24px;
 }
 
+/* Photos are read-only until "Photos" is picked in Change a Detail */
+.photo-list--locked .photo--empty {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.photo-list--locked .photo-remove {
+  display: none;
+}
+
 .photo-add-label {
   font-family: "Inter", sans-serif;
   font-size: 11px;
@@ -169,26 +199,66 @@ main {
 .map {
   position: relative;
   margin: 20px 0 12px;
-  height: 250px;
+  height: clamp(250px, 45vh, 480px);
   background: #e5e5e5;
   border: 1px solid #1b1b1b;
-  border-radius: 5px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
-.map img:first-child {
+.map-canvas {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
-.map-marker {
+/* Leaflet's own marker/tile layers render inside .map-canvas; while
+   editing is off, pointer events are blocked at the container level
+   (see .map--locked) so the map reads as a still image, but it's a
+   real Leaflet map underneath, not a screenshot. */
+.map--locked .map-canvas {
+  pointer-events: none;
+}
+
+.map .address-search {
   position: absolute;
-  top: 40%;
-  left: 45%;
-  width: 24px;
-  height: auto;
+  top: 12px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.map .address-search[hidden] {
+  display: none;
+}
+
+.map .address-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 28px;
+  border: none;
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+.map .address-search button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  background-color: #0fcaf5;
+  color: #1b1b1b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map--editing {
+  outline: 3px solid #0fcaf5;
+  outline-offset: 2px;
 }
 
 .field label {
@@ -204,7 +274,7 @@ main {
   font-size: 14px;
   padding: 8px 12px;
   border: 1px solid #1b1b1b;
-  border-radius: 5px;
+  border-radius: 8px;
   background: #ffffff;
   color: #1b1b1b;
 }
@@ -221,40 +291,16 @@ footer {
   width: 100%;
   display: flex;
   gap: 22px;
-  padding: 14px 18px calc(20px + env(safe-area-inset-bottom));
+  padding: 14px max(16px, calc((100% - 1000px) / 2))
+    calc(20px + env(safe-area-inset-bottom));
   background: #f3f3f3;
+  overflow: hidden;
+  scrollbar-gutter: stable;
 }
 
-@media (min-width: 600px) {
-  footer {
-    max-width: 480px;
-    margin: 0 auto;
-  }
-}
-
-footer button {
-  flex: 1;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 8px;
-
-  background: #0fcaf5; /* new button colour */
-  border: 2px solid #1b1b1b;
-  border-radius: 5px;
-  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
-
-  color: #1b1b1b;
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: center;
-  cursor: pointer;
-}
-
+/* Shared layout for both footer buttons (Change a Detail is a <button>,
+   Confirm is a link). Colours live on the modifier rules below. */
+footer button,
 footer a {
   flex: 1;
   min-height: 48px;
@@ -264,18 +310,30 @@ footer a {
 
   padding: 8px;
 
-  background: #0fcaf5; /* new button colour */
-  border: 2px solid #1b1b1b;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
 
-  color: #1b1b1b;
   font-family: "Poppins", sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
+}
+
+/* Change a Detail: light, outlined secondary button */
+footer button {
+  background: #ffffff;
+  border: 2px solid #1b1b1b;
+  color: #1b1b1b;
+}
+
+/* Confirm: solid dark primary button */
+footer a {
+  background: #1b1b1b;
+  border: 2px solid #1b1b1b;
+  color: #ffffff;
 }
 
 footer button:focus-visible,
@@ -290,6 +348,170 @@ footer a:active {
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
+/* ==== Change-a-detail menu ==== */
+
+.change-detail-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Same side padding as <main>, so the panel lines up with the map */
+  padding: 16px;
+  z-index: 2000;
+}
+
+.change-detail-menu[hidden] {
+  display: none;
+}
+
+.change-detail-menu__panel {
+  width: 100%;
+  /* Full width on phones, capped on larger screens */
+  max-width: 420px;
+  background: #ffffff;
+  border: 1px solid #1b1b1b;
+  border-radius: 12px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.change-detail-menu__panel h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.change-detail-menu__panel button {
+  min-height: 48px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.change-detail-menu__panel button:active {
+  opacity: 0.85;
+}
+
+.change-detail-menu__panel button:focus-visible {
+  outline: 3px solid #1b1b1b;
+  outline-offset: 3px;
+}
+
+/* The three issue buttons: black with white text */
+.change-detail-menu__option {
+  background: #1b1b1b;
+  border: 2px solid #1b1b1b;
+  color: #ffffff;
+}
+
+/* Cancel: white with black text */
+.change-detail-menu__cancel {
+  background: #ffffff;
+  border: 2px solid #1b1b1b;
+  color: #1b1b1b;
+}
+
+/* ==== Inline editing (issue detail + location) ==== */
+
+.issue-text-input {
+  width: 100%;
+  margin: 20px 0 0;
+  padding: 15px 10px;
+  background: #ffffff;
+  border: 1px solid #1b1b1b;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.inline-edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.inline-edit-actions button {
+  flex: 1;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 2px solid #1b1b1b;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inline-edit-actions button:active {
+  opacity: 0.85;
+}
+
+/* Save: black with white text */
+.inline-edit-save {
+  background: #1b1b1b;
+  color: #ffffff;
+}
+
+/* Cancel: white with black text */
+.inline-edit-cancel {
+  background: #ffffff;
+  color: #1b1b1b;
+}
+
+/* ==== Photos: always-editable slots ==== */
+
+.photo--wrapper {
+  position: relative;
+}
+
+.photo--wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #1b1b1b;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1b1b1b;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ==== Confirmation flash after returning from an edit step ==== */
+
+@keyframes just-updated-flash {
+  0% {
+    box-shadow: 0 0 0 3px #0fcaf5;
+  }
+  100% {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+
+.just-updated {
+  animation: just-updated-flash 1.5s ease-out;
+}
+
 /* ==== Responsive breakpoints ==== */
 
 @media (max-width: 374px) {
@@ -300,5 +522,13 @@ footer a:active {
 
   footer {
     gap: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  footer button,
+  footer a {
+    font-size: 16px;
+    padding: 8px 4px;
   }
 }
