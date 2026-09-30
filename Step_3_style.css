@@ -20,14 +20,14 @@ body {
 }
 
 body {
-  padding: 16px;
+  padding: 16px max(16px, calc((100% - 1000px) / 2));
 
   min-height: 100vh;
 
   display: flex;
   flex-direction: column;
 
-  background: #e5e5e5;
+  background: #ffffff;
   color: #1b1b1b;
   font-family: "Inter", sans-serif;
   line-height: 1.4;
@@ -307,7 +307,7 @@ main {
 .next-button {
   background: #000;
   color: #fff;
-  flex: 4;
+  flex: 5;
 
 }
 
@@ -342,15 +342,19 @@ button:active {
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 710px) {
   .location-controls {
     display: flex;
     gap: 16px;
   }
 
-  .get-location,
-  .address-search {
+  .get-location {
     flex: 1;
+    min-width: 0;
+  }
+
+  .address-search {
+    flex: 2;
     min-width: 0;
   }
 }
