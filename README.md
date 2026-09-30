@@ -4,7 +4,9 @@ FixIt is a mobile-first prototype for reporting a local issue to the council. So
 
 It is a front-end prototype built with plain HTML, CSS and JavaScript. There is no backend yet, so nothing is actually sent anywhere.
 
-**Live prototype:** _add your GitHub Pages link here_
+**Live prototype:** [stumpy-ux.github.io/Mission-x](https://stumpy-ux.github.io/Mission-x/)
+
+**Presentation:** [FixIt slide deck](https://www.figma.com/deck/bWtRKEBaDBrFIqBzsWPQBF)
 
 ## How it works
 
@@ -17,7 +19,7 @@ The report is built up over five steps, with a "submitting" screen and a confirm
 | `Step_5_index.html` | Check everything. **Change a Detail** opens a menu to edit the description, the photos or the location. Nothing can be edited without going through that menu. |
 | `Step_5_5_index.html` | "Submitting your report" screen: an animated logo, an inspirational quote, and a reference number is generated. |
 | `Step_6_index.html` | Confirmation with the reference number (with a copy button), what happens next, and optional contact details. |
-| `endpage.html` | The council page the user lands on after finishing. |
+
 
 Steps 1 and 2 (the home page and choosing the issue type) are not covered here yet.
 
