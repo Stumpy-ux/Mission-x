@@ -93,11 +93,13 @@ main {
 }
 
 .tooltip-step {
-  font-family: "Inter", sans-serif;
-  font-size: 18px;
+  font-family: "Inter", sans-serif; /* changing the tool tip fonts to match Emilys ---- again anothe rreason for global CSS ------- */
+  
+  font-size: clamp(16px, 3vw, 18px);
+  font-weight: 600;
+  color: #526748;
   margin: 0 0 4px;
 }
-
 .tooltip-text {
   font-family: "Inter", sans-serif;
   font-size: clamp(16px, 3vw, 18px);
