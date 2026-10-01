@@ -15,7 +15,7 @@ The report is built up over five steps, with a "submitting" screen and a confirm
 | Page | What it does |
 | --- | --- |
 | `Step_3_index.html` | Pick the location: use the current location, search an address, or tap the map. Confirming saves the place. |
-| `Step_4_index.html` | Add photos (in progress). |
+| `Step_4_index.html` | Add photos or files as evidence. Photos are shrunk before they are saved. |
 | `Step_5_index.html` | Check everything. **Change a Detail** opens a menu to edit the description, the photos or the location. Nothing can be edited without going through that menu. |
 | `Step_5_5_index.html` | "Submitting your report" screen: an animated logo, an inspirational quote, and a reference number is generated. |
 | `Step_6_index.html` | Confirmation with the reference number (with a copy button), what happens next, and optional contact details. |
