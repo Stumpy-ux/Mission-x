@@ -461,14 +461,16 @@ function importFromEarlierSteps() {
   }
 
   try {
-    const photos = JSON.parse(sessionStorage.getItem("selectedPhotos"));
-    if (Array.isArray(photos)) {
-      const valid = photos
+        const files = JSON.parse(localStorage.getItem("fixitUploadedFiles")); /* adding in fetch for photos from Emilys pages */
+    if (Array.isArray(files) && files.length > 0) {
+      const valid = files
+        .filter((f) => f && typeof f.type === "string" && f.type.startsWith("image/"))
+        .map((f) => f.data)
         .filter((src) => typeof src === "string" && src.startsWith("data:image"))
         .slice(0, MAX_PHOTOS);
       saveReport({ photos: valid });
-      sessionStorage.removeItem("selectedPhotos");
     }
+    localStorage.removeItem("fixitUploadedFiles");
   } catch (error) {
     console.error("Could not read the saved photos:", error);
   }
