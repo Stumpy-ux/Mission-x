@@ -71,7 +71,7 @@ Every page is designed for phones first and scales up to tablets and desktop.
 
 ## Credits
 
-Built by Iain O'Donnell and Emily.
+Built by Iain O'Donnell and Emily Niu.
 
-- Step 3 and Step 4: Emily
-- Steps 5, 5.5 and 6: Iain
+- Step 3 and Step 4: Emily Niu
+- Steps 5, 5.5 and 6: Iain O'Donnell
