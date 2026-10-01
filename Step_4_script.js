@@ -44,6 +44,7 @@ LocalStorage
 ========================================================= */
 
 const STORAGE_KEY="fixitUploadedFiles";
+localStorage.setItem(STORAGE_KEY,"[]"); /* each visit starts with no files, as the page doesn't show old ones */
 
 function getStoredFiles(){
   try{
