@@ -58,7 +58,7 @@ function saveStoredFiles(files){
   localStorage.setItem(STORAGE_KEY,JSON.stringify(files));
 }
 
-function saveUploadedFile(file){
+/* function saveUploadedFile(file){
   return new Promise((resolve,reject)=>{
     const reader=new FileReader();
 
@@ -82,8 +82,53 @@ function saveUploadedFile(file){
     reader.onerror=()=>reject(reader.error);
     reader.readAsDataURL(file);
   });
+} */ /* bug found - photos will be too big for phone as staored as text in local storage -- si shrinking them 1st - Iain */
+function shrinkImage(dataUrl,type){
+  if(!type.startsWith("image/"))return Promise.resolve(dataUrl);
+  return new Promise(resolve=>{
+    const img=new Image();
+    img.onload=()=>{
+      const scale=Math.min(1,1000/Math.max(img.width,img.height));
+      const canvas=document.createElement("canvas");
+      canvas.width=Math.round(img.width*scale);
+      canvas.height=Math.round(img.height*scale);
+      canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
+      resolve(canvas.toDataURL("image/jpeg",0.7));
+    };
+    img.onerror=()=>resolve(dataUrl);
+    img.src=dataUrl;
+  });
 }
 
+function saveUploadedFile(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+
+    reader.onload=async()=>{
+      try{
+        const storedFiles=getStoredFiles();
+
+        const uploadedFile={
+          id:`${Date.now()}-${Math.random().toString(16).slice(2)}`,
+          name:file.name,
+          type:file.type,
+          size:file.size,
+          data:await shrinkImage(reader.result,file.type),
+          uploadedAt:new Date().toISOString()
+        };
+
+        storedFiles.push(uploadedFile);
+        saveStoredFiles(storedFiles);
+        resolve(uploadedFile);
+      }catch(error){
+        reject(error);
+      }
+    };
+
+    reader.onerror=()=>reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
 function removeStoredFile(fileId){
   const storedFiles=getStoredFiles();
   saveStoredFiles(storedFiles.filter(file=>file.id!==fileId));
