@@ -345,6 +345,7 @@ main {
   border-radius: 8px;
 
   font-size: 14px;
+  color: #000;
 
   cursor: pointer;
 
@@ -371,7 +372,7 @@ main {
 /* Active filter */
 
 .status-button.active {
-  outline: 2px solid currentColor;
+  outline: 2px solid #000;
   outline-offset: 2px;
 
   opacity: 1;
