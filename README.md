@@ -28,7 +28,8 @@ Steps 1 and 2 (the home page and choosing the issue type) are not covered here y
 The pages pass the report along using the browser's own storage:
 
 - **Step 3** saves the confirmed location in `sessionStorage` as `selectedLocation` (address, latitude, longitude).
-- **Step 4** will save photos in `sessionStorage` as `selectedPhotos`, an array of image data URLs (up to 4).
+- **Step 4** saves each uploaded file in `localStorage` under `fixitUploadedFiles` (name, type, size and the file data). Photos are shrunk to about 1000px first so they fit in the browser's storage.
+- **Step 5** copies the location and the first 4 images into `localStorage["fixit_report"]`, then clears the temporary copies so edits made on Step 5 are not overwritten.
 - **Step 5** copies both into `localStorage["fixit_report"]`, then clears the temporary copies so edits made on Step 5 are not overwritten.
 - **Step 5.5** adds a reference number in the format `FX-` followed by six digits.
 - **Step 6** reads the report and shows the reference number.
@@ -66,7 +67,7 @@ Every page is designed for phones first and scales up to tablets and desktop.
 
 - No backend: reports are not stored or sent anywhere.
 - The reference number is random and not checked for duplicates.
-- Photos are stored in the browser as text, so very large photos can fill the browser's storage. Step 4 should shrink them before saving.
+- Photos are stored in the browser as text, so very large photos can fill the browser's storage. 
 - The quote service can be unavailable, in which case a built-in quote is shown.
 
 ## Credits
