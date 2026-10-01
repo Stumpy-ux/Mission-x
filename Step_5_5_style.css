@@ -46,14 +46,7 @@ main {
    The logo itself is the spinner: each group inside the SVG (arcs,
    phone, wordmark, scene, the checkmark) animates on its own rather
    than spinning the whole flat logo as one piece. The SVG markup
-   lives in its own file (assets/fixit-logo-spinner.svg) and is
-   fetched + injected into #spinnerStage at load time by
-   Step_5_5_script.js, so these rules target it by id/tag rather than
-   a class on the <svg> tag itself. Transform origins below are given
-   in the real logo's own coordinate space (viewBox is 0 0 657 704),
-   picked to match where each group's shapes actually sit — the arcs
-   and phone cluster near the top (roughly x:330 y:120-150), the
-   checkmark sits at its own circle center (x:520 y:536). */
+   lives in its own file  */
 
 .spinner-stage {
   width: 160px;
