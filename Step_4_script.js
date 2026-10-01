@@ -148,6 +148,7 @@ attachFileButton.addEventListener("click",()=>fileInput.click());
 /* =========================================================
 File Input Change
 ========================================================= */
+// File handling - File selection - Handle files selected through the camera/photo/file.
 
 cameraInput.addEventListener("change",event=>{
   handleFiles(event.target.files);
@@ -185,6 +186,7 @@ Add File
 function addFile(file){
   selectedFiles.push(file);
 
+  // File handling - File validation - Files over the size limit are shown as failed and are not uploaded.  
   const isFailed=file.size>maxSize;
   const card=isFailed?createFailedCard(file):createReadyCard(file);
 
@@ -235,6 +237,7 @@ function simulateUpload(card){
 
   let progress=0;
 
+  // State management - Uploading - Simulate upload progress to give users feedback while the file is processing.
   const interval=setInterval(async()=>{
     if(!card.isConnected){
       clearInterval(interval);
@@ -276,6 +279,7 @@ function simulateUpload(card){
 /* =========================================================
 Create Uploaded Card
 ========================================================= */
+// State management - Uploaded - Replace the upload card with the completed state when the file is uploaded.
 
 function createUploadedCard(file,storedFileId){
   const card=uploadedStateTemplate.cloneNode(true);
@@ -299,6 +303,7 @@ function createUploadedCard(file,storedFileId){
   fileName.textContent=file.name;
   setFilePreview(file,preview);
 
+  // User interactions - Preview button - Open image files in a new window so users can check their upload.
   if(previewButton){
     previewButton.addEventListener("click",()=>{
       const storedFile=getStoredFiles().find(
@@ -355,6 +360,7 @@ function createUploadedCard(file,storedFileId){
 /* =========================================================
 Create Failed Card
 ========================================================= */
+// State management - Failed - Show a failed state so users can see which file needs attention.
 
 function createFailedCard(file){
   const card=failedStateTemplate.cloneNode(true);
@@ -384,6 +390,7 @@ function createFailedCard(file){
 /* =========================================================
 File Preview
 ========================================================= */
+// File handling - Preview - Show a placeholder for non-image files because they cannot be previewed.
 
 function setFilePreview(file,previewElement){
   if(!file.type.startsWith("image/")){
@@ -401,6 +408,7 @@ function setFilePreview(file,previewElement){
 /* =========================================================
 Remove File
 ========================================================= */
+// User interactions - Delete button - Remove the file from the current state and update the UI.
 
 function removeFile(file,card){
   if(card._uploadInterval){
@@ -423,12 +431,14 @@ function removeFile(file,card){
 /* =========================================================
 Update UI
 ========================================================= */
+// State management - Attached count - Count files within the size limit as attached files.
 
 function updateUI(){
   const attached=selectedFiles.filter(
     file=>file.size<=maxSize
   ).length;
 
+  // State management - Failed count - Count oversized files so the failed state can be shown to the user.  
   const failed=selectedFiles.filter(
     file=>file.size>maxSize
   ).length;
@@ -539,6 +549,7 @@ function resetFileState(){
 /* =========================================================
 Clear File Inputs
 ========================================================= */
+// Clear the file inputs after processing so the upload controls are reset.
 
 function clearFileInputs(){
   cameraInput.value="";
@@ -556,6 +567,7 @@ updateFilterButtons();
 
 
 // Next button validation
+// User interactions - Next button Conditional navigation - If any files failed validation, show the failed files before continuing.
 nextButton.addEventListener("click", () => {
   if (Number(failedCount.textContent) > 0) {
     /*failedButton.click();

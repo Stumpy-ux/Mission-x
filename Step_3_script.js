@@ -64,6 +64,7 @@ function createLocationPopup(address) {
 
 function showLocationPopup(address) {
   
+  // Keep the popup within the map width on smaller screens.
   const maxPopupWidth = getMaxPopupWidth();
   
   
@@ -107,6 +108,7 @@ const myLocationButton = document.getElementById(
 myLocationButton.addEventListener("click", function () {
 
     if (!navigator.geolocation) {
+      // Show a fallback message when the browser does not support geolocation.
 
       alert(
         "Geolocation is not supported by your browser."
@@ -115,6 +117,7 @@ myLocationButton.addEventListener("click", function () {
       return;
     }
 
+    // Use the browser's Geolocation API to get the user's current coordinates.
 
     navigator.geolocation.getCurrentPosition(
 
@@ -126,12 +129,14 @@ myLocationButton.addEventListener("click", function () {
         const longitude =
           position.coords.longitude;
 
+        // Zoom in closely enough for the user to identify the issue location.
 
         map.setView(
           [latitude, longitude],
           17
         );
 
+        // Remove the previous marker so only the selected location is shown.
 
         if (marker) {
           map.removeLayer(marker);
@@ -152,6 +157,7 @@ myLocationButton.addEventListener("click", function () {
 
 
         try {
+          // Convert the coordinates into a readable address for the user.
 
           const response =
             await fetch(url);
@@ -375,6 +381,7 @@ document.addEventListener("click", function (event) {
         latitude: position.lat,
         longitude: position.lng
       };
+      // Save the confirmed location so it can be used on the next step.
 
       sessionStorage.setItem(
         "selectedLocation",
