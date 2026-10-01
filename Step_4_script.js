@@ -27,6 +27,8 @@ const failedButton=document.querySelector(".failed-button");
 const attachedCount=document.getElementById("attachedCount");
 const failedCount=document.getElementById("failedCount");
 
+const nextButton = document.getElementById("nextButton");
+
 
 /* =========================================================
 State
@@ -505,3 +507,17 @@ Initial State
 
 updateUI();
 updateFilterButtons();
+
+
+// Next button validation
+nextButton.addEventListener("click", () => {
+  if (Number(failedCount.textContent) > 0) {
+    /*failedButton.click();
+    return;*/
+    activeFilter = "failed";
+    applyFilter();
+    return;
+  }
+
+  window.location.href = "Step_5_index.html";
+});
