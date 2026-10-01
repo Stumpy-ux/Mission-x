@@ -202,6 +202,7 @@ main {
   border-radius: 20px;
 
   font-size: clamp(12px, 1.8vh, 14px);
+  color: #000;
 
   cursor: pointer;
 }
