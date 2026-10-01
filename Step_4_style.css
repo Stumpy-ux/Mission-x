@@ -20,9 +20,14 @@ body {
 }
 
 body {
-  padding: 16px max(16px, calc((100% - 1000px) / 2));
+  padding:
+    max(16px, calc(env(safe-area-inset-top) + 16px))
+    max(16px, calc((100% - 1000px) / 2))
+    max(28px, calc(env(safe-area-inset-bottom) + 16px));
 
   min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
@@ -617,7 +622,8 @@ button:active {
   .file-input-button {
     flex-direction: row;
     justify-content: space-evenly;
-    align-items: center;
+    /*align-items: center;*/
+    align-items: stretch;
   }
 
   .file-input-button button {
