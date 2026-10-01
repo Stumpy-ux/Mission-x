@@ -462,7 +462,7 @@ function importFromEarlierSteps() {
 
   try {
         const files = JSON.parse(localStorage.getItem("fixitUploadedFiles")); /* adding in fetch for photos from Emilys pages */
-    if (Array.isArray(files) && files.length > 0) {
+      if (Array.isArray(files)) {
       const valid = files
         .filter((f) => f && typeof f.type === "string" && f.type.startsWith("image/"))
         .map((f) => f.data)
